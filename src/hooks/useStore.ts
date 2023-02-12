@@ -12,7 +12,7 @@ export const useStore = (solution: string) => {
     const [isCorrect, setIsCorrect] = useState(false);
     const [keyboardEnable, setKeyboardEnable] = useState(true);
     const [history, setHistory] = useState<string[]>([]);
-    const [useKeys, setUsedKeys] = useState<{ [key: string]: string }>({});
+    const [usedKeys, setUsedKeys] = useState<{ [key: string]: string }>({});
     const [open, setOpen] = useState(false);
     const [shake, setShake] = useState(false);
 
@@ -32,7 +32,6 @@ export const useStore = (solution: string) => {
     const formatGuess = () => {
         const solArr: (string | null)[] = [...solution];
         const formattedGuess = [...currentGuess].map((letter) => ({ letter, color: unused }));
-
         // set green color for right guesses
         formattedGuess.forEach((item, i) => {
             if (solArr[i] === item.letter) {
@@ -40,25 +39,21 @@ export const useStore = (solution: string) => {
                 solArr[i] = null;
             }
         });
-
-        // set yellow for letters that are on wrong place
+        // set yellow for letters that are on wrong place and havent
         formattedGuess.forEach((item, i) => {
             if (solArr.includes(item.letter) && item.color !== green) {
                 formattedGuess[i].color = yellow;
                 solArr[solArr.indexOf(item.letter)] = null;
             }
         });
-
         return formattedGuess;
     };
 
     const addNewWord = (guess: string) => {
         const formattedGuess = formatGuess();
-
         setGuesses((prev) => {
             const newGuesses = [...prev];
             newGuesses[turn] = formattedGuess;
-
             return newGuesses;
         });
         setHistory((prev) => [...prev, guess]);
@@ -71,12 +66,10 @@ export const useStore = (solution: string) => {
                     newKeys[item.letter] = green;
                     return;
                 }
-
                 if (item.color === yellow && currentColor !== green) {
                     newKeys[item.letter] = yellow;
                     return;
                 }
-
                 if (item.color === unused && currentColor !== green && currentColor !== yellow) {
                     newKeys[item.letter] = used;
                     return;
@@ -91,7 +84,7 @@ export const useStore = (solution: string) => {
     };
 
     const checkSubmission = (guess: string) => {
-        // if dictionary have this word then go ahead
+        // if dictionary have this word then go forward
         if (dictionary.includes(guess)) {
             // if the word is same as solution
             if (solution === guess) {
@@ -99,13 +92,14 @@ export const useStore = (solution: string) => {
                 toast.success(solution, { duration: 2500 });
                 setTimeout(() => setOpen(true), 3000);
             }
-
             // Don't do anything if word was guessed once before
             if (history.includes(guess)) {
                 activateShake();
                 toast('Word already guessed', { duration: 3000 });
                 return;
             }
+            // add new word in guesses, history, and colors to usedKeys for keyboard
+            addNewWord(guess);
 
             // on last turn if the current guess is wrong
             if (turn === 5 && currentGuess !== solution) {
@@ -113,7 +107,7 @@ export const useStore = (solution: string) => {
                 setTimeout(onOpenModal, 1000);
             }
         } else {
-            // otherwise show toast that the word doesn't exist in dictionary
+            // otherwise show toast the word doesn't exist in dictionary
             activateShake();
             toast.error('Word not found');
         }
@@ -125,8 +119,7 @@ export const useStore = (solution: string) => {
             setCurrentGuess((prev) => prev.slice(0, -1));
             return;
         }
-
-        // if it's enter then call word submit function
+        // if its enter then call word submit function
         else if (key === 'Enter') {
             if (currentGuess.length < 5) {
                 // if less then 5 then show toast incomplete word or something
@@ -137,7 +130,7 @@ export const useStore = (solution: string) => {
                 return;
             }
         }
-        // if its a letter then set it is current guess
+        // if its a letter then set it in current guess
         else if (/^[a-zA-Z]$/.test(key)) {
             if (currentGuess.length < 5) {
                 setCurrentGuess((prev) => (prev + key).toLowerCase());
@@ -150,7 +143,7 @@ export const useStore = (solution: string) => {
         open,
         shake,
         guesses,
-        useKeys,
+        usedKeys,
         isCorrect,
         currentGuess,
         keyboardEnable,
