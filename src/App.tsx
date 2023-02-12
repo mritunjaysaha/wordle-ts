@@ -1,10 +1,14 @@
+import { Toaster } from 'react-hot-toast';
+import { Board } from './components/Board/Board';
+
 function App() {
     return (
-        <div className="min-h-screen flex justify-center items-center">
-            <h1 className="text-3xl font-bold text-blue-600">
-                Install & Setup Vite + React + Typescript + Tailwind CSS 3
-            </h1>
-        </div>
+        <>
+            <main className='bg-grey-light dark:bg-blue-midnight flex flex-1 flex col justify-center gap-2 md:gap-4'>
+                <Board />
+            </main>
+            <Toaster />
+        </>
     );
 }
 
