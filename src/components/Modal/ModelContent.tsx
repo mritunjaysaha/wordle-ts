@@ -15,11 +15,7 @@ export const ModalContent = ({ isCorrect, solution, turn }: ModalContent) => {
             <p className=''>
                 Right answer is <span className='font-bold text-green-700'>{solution}</span>
             </p>
-            <p>
-                {isCorrect
-                    ? `You found answer in ${turn === 1 ? ' 1 turn' : `${turn} turns`} Wohuuuuu!`
-                    : '6 turns were not enough? You suck bruh lol!'}
-            </p>
+            <p>{isCorrect && `You found answer in ${turn === 1 ? ' 1 turn' : `${turn} turns`}`}</p>
         </div>
     );
 };
