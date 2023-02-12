@@ -2,7 +2,7 @@ import { ReactComponent as IconSun } from '../../assets/icon-sun.svg';
 import { ReactComponent as IconMoon } from '../../assets/icon-moon.svg';
 import { useDarkMode } from '../../hooks/useDarkMode';
 
-const ModeSwitch = () => {
+export const ModeSwitch = () => {
     const [isDark, setIsDark] = useDarkMode();
 
     return (
