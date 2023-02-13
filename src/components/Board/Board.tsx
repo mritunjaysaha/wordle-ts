@@ -9,6 +9,7 @@ interface BoardProps {
 }
 
 export const Board = ({ currentGuess, turn, guesses, shake }: BoardProps) => {
+    console.log('[Board]');
     return (
         <section className='flex flex-col items-center gap-1 py-8 md:py-2'>
             {guesses.map((guess, i) => {

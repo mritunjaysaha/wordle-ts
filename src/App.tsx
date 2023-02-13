@@ -46,9 +46,9 @@ function App() {
     }, [handleKeyup, isCorrect, turn]);
 
     return (
-        <>
+        <section className='h-screen flex flex-col'>
             <Header text='Wordle' />
-            <main className='bg-grey-light dark:bg-blue-midnight flex flex-1 flex col justify-center gap-2 md:gap-4'>
+            <main className='bg-grey-light dark:bg-blue-midnight flex flex-1 flex-col justify-center gap-2 md:gap-4'>
                 <Board guesses={guesses} turn={turn} currentGuess={currentGuess} shake={shake} />
                 <Keypad
                     handleInput={handleInput}
@@ -67,7 +67,7 @@ function App() {
             >
                 <ModalContent isCorrect={isCorrect} solution={solution} turn={turn} />
             </Modal>
-        </>
+        </section>
     );
 }
 
