@@ -5,8 +5,6 @@ export interface TileProps {
 }
 
 export const Tile = ({ letter, color, animation }: TileProps) => {
-    console.table({ letter, color, animation });
-
     return (
         <div
             className={`${
