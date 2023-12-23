@@ -4,13 +4,10 @@ import { Board } from './components/Board/Board';
 import { Footer } from './components/Footer/Footer';
 import { Header } from './components/Header/Header';
 import { Keypad } from './components/Keypad/Keypad';
-import words from './utility/words.json';
 import 'react-responsive-modal/styles.css';
 import { Modal } from 'react-responsive-modal';
 import { useStore } from './hooks/useStore';
 import { ModalContent } from './components/Modal/ModelContent';
-
-const solution = words[Math.floor(Math.random() * words.length)];
 
 function App() {
     const {
@@ -18,6 +15,7 @@ function App() {
         open,
         shake,
         guesses,
+        solution,
         usedKeys,
         isCorrect,
         currentGuess,
@@ -25,7 +23,7 @@ function App() {
         handleInput,
         onCloseModal,
         setKeyboardEnable,
-    } = useStore(solution);
+    } = useStore();
 
     const handleKeyup = (e: KeyboardEvent) => {
         const key = e.key;
