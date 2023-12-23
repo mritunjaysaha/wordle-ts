@@ -4,9 +4,10 @@ import dictionary from '../utility/dictionary.json';
 import 'react-responsive-modal/styles.css';
 import { green, unused, used, yellow } from '../utility/constants';
 import { TileProps } from '../components/Board/Tile';
+import { useSuggestedWord } from './useSuggestedWord';
 
-export const useStore = (solution: string) => {
-    console.log({ solution });
+export const useStore = () => {
+    const { suggestedWord: solution } = useSuggestedWord();
     const [turn, setTurn] = useState(0);
     const [currentGuess, setCurrentGuess] = useState('');
     const [guesses, setGuesses] = useState([...Array<TileProps[]>(6)]);
@@ -144,6 +145,7 @@ export const useStore = (solution: string) => {
         open,
         shake,
         guesses,
+        solution,
         usedKeys,
         isCorrect,
         currentGuess,
