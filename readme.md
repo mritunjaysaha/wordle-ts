@@ -4,6 +4,8 @@
 
 ![Wordle](/public/wordle.png)
 
+[Backend](https://github.com/mritunjaysaha/wordle-be)
+
 ### To run the project
 
 ```bash
