@@ -1,4 +1,5 @@
 ![Vercel](https://vercelbadge.vercel.app/api/mritunjaysaha/wordle-ts)
+![Language](https://4.vercel.app/github/languageall/mritunjaysaha/wordle-ts)
 
 ## Wordle
 
