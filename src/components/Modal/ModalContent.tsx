@@ -20,7 +20,12 @@ export const ModalContent = ({ isCorrect, solution, turn }: ModalContent) => {
             </p>
             <p>{isCorrect && `You found answer in ${turn === 1 ? ' 1 turn' : `${turn} turns`}`}</p>
 
-            <button onClick={onIncrementScore}>Play Again</button>
+            <button
+                onClick={onIncrementScore}
+                className='py-2 px-4 mt-4 font-bold text-white bg-blue-midnight'
+            >
+                Play Again
+            </button>
         </div>
     );
 };

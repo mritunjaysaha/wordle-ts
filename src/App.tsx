@@ -7,7 +7,7 @@ import { Keypad } from './components/Keypad/Keypad';
 import 'react-responsive-modal/styles.css';
 import { Modal } from 'react-responsive-modal';
 import { useStore } from './hooks/useStore';
-import { ModalContent } from './components/Modal/ModelContent';
+import { ModalContent } from './components/Modal/ModalContent';
 import { WordleContext } from './components/store/context';
 
 function App() {
@@ -55,6 +55,7 @@ function App() {
             <section className='h-screen flex flex-col'>
                 <Header text='Wordle' />
                 <p>score: {score}</p>
+                <p>solution: {solution}</p>
 
                 <main className='bg-grey-light dark:bg-blue-midnight flex flex-1 flex-col justify-center gap-2 md:gap-4'>
                     <Board
