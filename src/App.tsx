@@ -8,12 +8,14 @@ import 'react-responsive-modal/styles.css';
 import { Modal } from 'react-responsive-modal';
 import { useStore } from './hooks/useStore';
 import { ModalContent } from './components/Modal/ModelContent';
+import { WordleContext } from './components/store/context';
 
 function App() {
     const {
         turn,
         open,
         shake,
+        score,
         guesses,
         solution,
         usedKeys,
@@ -23,6 +25,7 @@ function App() {
         handleInput,
         onCloseModal,
         setKeyboardEnable,
+        onIncrementScore,
     } = useStore();
 
     const handleKeyup = (e: KeyboardEvent) => {
@@ -44,28 +47,41 @@ function App() {
     }, [handleKeyup, isCorrect, turn]);
 
     return (
-        <section className='h-screen flex flex-col'>
-            <Header text='Wordle' />
-            <main className='bg-grey-light dark:bg-blue-midnight flex flex-1 flex-col justify-center gap-2 md:gap-4'>
-                <Board guesses={guesses} turn={turn} currentGuess={currentGuess} shake={shake} />
-                <Keypad
-                    handleInput={handleInput}
-                    keyboardEnable={keyboardEnable}
-                    usedKeys={usedKeys}
-                />
-            </main>
-            <Footer />
-            <Toaster />
+        <WordleContext.Provider
+            value={{
+                onIncrementScore,
+            }}
+        >
+            <section className='h-screen flex flex-col'>
+                <Header text='Wordle' />
+                <p>score: {score}</p>
 
-            <Modal
-                open={open}
-                onClose={onCloseModal}
-                center
-                classNames={{ modal: 'rounded p-6', closeButton: 'top-0 p-0.5 right-0' }}
-            >
-                <ModalContent isCorrect={isCorrect} solution={solution} turn={turn} />
-            </Modal>
-        </section>
+                <main className='bg-grey-light dark:bg-blue-midnight flex flex-1 flex-col justify-center gap-2 md:gap-4'>
+                    <Board
+                        guesses={guesses}
+                        turn={turn}
+                        currentGuess={currentGuess}
+                        shake={shake}
+                    />
+                    <Keypad
+                        handleInput={handleInput}
+                        keyboardEnable={keyboardEnable}
+                        usedKeys={usedKeys}
+                    />
+                </main>
+                <Footer />
+                <Toaster />
+
+                <Modal
+                    open={open}
+                    onClose={onCloseModal}
+                    center
+                    classNames={{ modal: 'rounded p-6', closeButton: 'top-0 p-0.5 right-0' }}
+                >
+                    <ModalContent isCorrect={isCorrect} solution={solution} turn={turn} />
+                </Modal>
+            </section>
+        </WordleContext.Provider>
     );
 }
 

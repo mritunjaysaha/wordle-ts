@@ -12,7 +12,7 @@ export const useSuggestedWord = () => {
         const res = await fetch(
             `${
                 import.meta.env.MODE === 'development'
-                    ? 'http://localhost:4000'
+                    ? 'http://localhost:4123'
                     : import.meta.env.VITE_BASE_URL
             }/api/v1/words/`,
         );
@@ -28,5 +28,6 @@ export const useSuggestedWord = () => {
 
     return {
         suggestedWord,
+        getWord,
     } as const;
 };
