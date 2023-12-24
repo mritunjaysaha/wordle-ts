@@ -54,9 +54,12 @@ function App() {
         >
             <section className='h-screen flex flex-col'>
                 <Header text='Wordle' />
-                <p>score: {score}</p>
-                <p>solution: {solution}</p>
-
+                {import.meta.env.MODE === 'development' && (
+                    <>
+                        <p>score: {score}</p>
+                        <p>solution: {solution}</p>
+                    </>
+                )}
                 <main className='bg-grey-light dark:bg-blue-midnight flex flex-1 flex-col justify-center gap-2 md:gap-4'>
                     <Board
                         guesses={guesses}
