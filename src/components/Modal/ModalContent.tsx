@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { WordleContext } from '../store/context';
 
 interface ModalContent {
     isCorrect: boolean;
@@ -7,6 +8,8 @@ interface ModalContent {
 }
 
 export const ModalContent = ({ isCorrect, solution, turn }: ModalContent) => {
+    const { onIncrementScore } = useContext(WordleContext);
+
     return (
         <div className='text-center'>
             <h2 className='pt-2 pb-4 text-xl font-bold'>
@@ -16,6 +19,13 @@ export const ModalContent = ({ isCorrect, solution, turn }: ModalContent) => {
                 Right answer is <span className='font-bold text-green-700'>{solution}</span>
             </p>
             <p>{isCorrect && `You found answer in ${turn === 1 ? ' 1 turn' : `${turn} turns`}`}</p>
+
+            <button
+                onClick={onIncrementScore}
+                className='py-2 px-4 mt-4 font-bold text-white bg-blue-midnight'
+            >
+                Play Again
+            </button>
         </div>
     );
 };

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import dictionary from '../utility/dictionary.json';
 import 'react-responsive-modal/styles.css';
@@ -7,16 +7,18 @@ import { TileProps } from '../components/Board/Tile';
 import { useSuggestedWord } from './useSuggestedWord';
 
 export const useStore = () => {
-    const { suggestedWord: solution } = useSuggestedWord();
-    const [turn, setTurn] = useState(0);
-    const [currentGuess, setCurrentGuess] = useState('');
-    const [guesses, setGuesses] = useState([...Array<TileProps[]>(6)]);
-    const [isCorrect, setIsCorrect] = useState(false);
-    const [keyboardEnable, setKeyboardEnable] = useState(true);
+    const { getWord, suggestedWord: solution } = useSuggestedWord();
+
+    const [turn, setTurn] = useState<number>(0);
+    const [currentGuess, setCurrentGuess] = useState<string>('');
+    const [guesses, setGuesses] = useState<TileProps[][]>([...Array<TileProps[]>(6)]);
+    const [isCorrect, setIsCorrect] = useState<boolean>(false);
+    const [keyboardEnable, setKeyboardEnable] = useState<boolean>(true);
     const [history, setHistory] = useState<string[]>([]);
     const [usedKeys, setUsedKeys] = useState<{ [key: string]: string }>({});
-    const [open, setOpen] = useState(false);
-    const [shake, setShake] = useState(false);
+    const [open, setOpen] = useState<boolean>(false);
+    const [shake, setShake] = useState<boolean>(false);
+    const [score, setScore] = useState<number>(0);
 
     const activateShake = () => {
         setShake(true);
@@ -92,7 +94,8 @@ export const useStore = () => {
             if (solution === guess) {
                 setIsCorrect(true);
                 toast.success(solution, { duration: 2500 });
-                setTimeout(() => setOpen(true), 3000);
+                setTimeout(() => setOpen(true), 2000);
+                setScore((prevScore) => prevScore + 1);
             }
             // Don't do anything if word was guessed once before
             if (history.includes(guess)) {
@@ -140,10 +143,26 @@ export const useStore = () => {
         }
     };
 
+    const resetStates = () => {
+        setTurn(0);
+        setCurrentGuess('');
+        setGuesses([...Array<TileProps[]>(6)]);
+        setIsCorrect(false);
+        setHistory([]);
+        setUsedKeys({});
+    };
+
+    const onIncrementScore = () => {
+        getWord();
+        resetStates();
+        onCloseModal();
+    };
+
     return {
         turn,
         open,
         shake,
+        score,
         guesses,
         solution,
         usedKeys,
@@ -153,5 +172,6 @@ export const useStore = () => {
         handleInput,
         onCloseModal,
         setKeyboardEnable,
+        onIncrementScore,
     } as const;
 };
