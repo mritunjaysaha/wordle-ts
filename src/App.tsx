@@ -1,14 +1,14 @@
 import { useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
+import Modal from 'react-responsive-modal';
+
 import { Board } from './components/Board/Board';
 import { Footer } from './components/Footer/Footer';
 import { Header } from './components/Header/Header';
 import { Keypad } from './components/Keypad/Keypad';
-import 'react-responsive-modal/styles.css';
-import { Modal } from 'react-responsive-modal';
-import { useStore } from './hooks/useStore';
 import { ModalContent } from './components/Modal/ModalContent';
 import { WordleContext } from './components/store/context';
+import { useStore } from './hooks/useStore';
 
 function App() {
     const {
@@ -29,7 +29,7 @@ function App() {
     } = useStore();
 
     const handleKeyup = (e: KeyboardEvent) => {
-        const key = e.key;
+        const { key } = e;
 
         if (key) handleInput(key);
     };
@@ -52,7 +52,7 @@ function App() {
                 onIncrementScore,
             }}
         >
-            <section className='h-screen flex flex-col'>
+            <section className='flex h-screen flex-col'>
                 <Header text='Wordle' />
                 {import.meta.env.MODE === 'development' && (
                     <>
@@ -60,7 +60,7 @@ function App() {
                         <p>solution: {solution}</p>
                     </>
                 )}
-                <main className='bg-grey-light dark:bg-blue-midnight flex flex-1 flex-col justify-center gap-2 md:gap-4'>
+                <main className='flex flex-1 flex-col justify-center gap-2 bg-grey-light md:gap-4 dark:bg-blue-midnight'>
                     <Board
                         guesses={guesses}
                         turn={turn}
