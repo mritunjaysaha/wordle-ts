@@ -1,13 +1,12 @@
 import { useEffect } from 'react';
-import { useStore } from '../hooks/useStore';
-import { WordleContext } from '../components/store/context';
-import { Header } from '../components/Header/Header';
-import { Board } from '../components/Board/Board';
-import { Keypad } from '../components/Keypad/Keypad';
-import { Footer } from '../components/Footer/Footer';
 import { Toaster } from 'react-hot-toast';
 import Modal from 'react-responsive-modal';
+
+import { Board } from '../components/Board/Board';
+import { Keypad } from '../components/Keypad/Keypad';
 import { ModalContent } from '../components/Modal/ModalContent';
+import { WordleContext } from '../components/store/context';
+import { useStore } from '../hooks/useStore';
 
 function Home() {
     const {
@@ -28,7 +27,7 @@ function Home() {
     } = useStore();
 
     const handleKeyup = (e: KeyboardEvent) => {
-        const key = e.key;
+        const { key } = e;
 
         if (key) handleInput(key);
     };
@@ -51,37 +50,30 @@ function Home() {
                 onIncrementScore,
             }}
         >
-            <section className='h-screen flex flex-col'>
-                {import.meta.env.MODE === 'development' && (
-                    <>
-                        <p>score: {score}</p>
-                        <p>solution: {solution}</p>
-                    </>
-                )}
-                <main className='bg-grey-light dark:bg-blue-midnight flex flex-1 flex-col justify-center gap-2 md:gap-4'>
-                    <Board
-                        guesses={guesses}
-                        turn={turn}
-                        currentGuess={currentGuess}
-                        shake={shake}
-                    />
-                    <Keypad
-                        handleInput={handleInput}
-                        keyboardEnable={keyboardEnable}
-                        usedKeys={usedKeys}
-                    />
-                </main>
-                <Toaster />
+            {import.meta.env.MODE === 'development' && (
+                <>
+                    <p>score: {score}</p>
+                    <p>solution: {solution}</p>
+                </>
+            )}
+            <main className='flex flex-1 flex-col justify-center gap-2 bg-grey-light md:gap-4 dark:bg-blue-midnight'>
+                <Board guesses={guesses} turn={turn} currentGuess={currentGuess} shake={shake} />
+                <Keypad
+                    handleInput={handleInput}
+                    keyboardEnable={keyboardEnable}
+                    usedKeys={usedKeys}
+                />
+            </main>
+            <Toaster />
 
-                <Modal
-                    open={open}
-                    onClose={onCloseModal}
-                    center
-                    classNames={{ modal: 'rounded p-6', closeButton: 'top-0 p-0.5 right-0' }}
-                >
-                    <ModalContent isCorrect={isCorrect} solution={solution} turn={turn} />
-                </Modal>
-            </section>
+            <Modal
+                open={open}
+                onClose={onCloseModal}
+                center
+                classNames={{ modal: 'rounded p-6', closeButton: 'top-0 p-0.5 right-0' }}
+            >
+                <ModalContent isCorrect={isCorrect} solution={solution} turn={turn} />
+            </Modal>
         </WordleContext.Provider>
     );
 }
