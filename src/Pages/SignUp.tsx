@@ -25,11 +25,8 @@ export default function SignUp() {
                     </p>
                 </header>
                 {/* FORM CONTAINER */}
-                <div>
-                    {/* SIGN UP TIMELINE */}
-                    {/* <div></div> */}
+                <div className='flex flex-col gap-8'>
                     <HorizontalTimeline formTimelineState={formTimelineState} />
-                    {/* SIGN UP FORM */}
                     <SignUpForm
                         formTimelineState={formTimelineState}
                         setFormTimelineState={setFormTimelineState}
