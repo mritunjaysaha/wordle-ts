@@ -3,17 +3,17 @@ import { BrowserRouter } from 'react-router-dom';
 import { AppRoutes } from './AppRoutes';
 import { Footer } from './components/Footer/Footer';
 import { Navbar } from './components/Navbar/Navbar';
-import { Layout } from './Layout';
+import { RootLayout } from './Layouts/RootLayout';
 
 function App() {
     return (
-        <Layout>
-            <BrowserRouter>
+        <BrowserRouter>
+            <RootLayout>
                 <Navbar text='Wordle' />
                 <AppRoutes />
                 <Footer />
-            </BrowserRouter>
-        </Layout>
+            </RootLayout>
+        </BrowserRouter>
     );
 }
 
