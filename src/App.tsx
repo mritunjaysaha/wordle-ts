@@ -2,14 +2,14 @@ import { BrowserRouter } from 'react-router-dom';
 
 import { AppRoutes } from './AppRoutes';
 import { Footer } from './components/Footer/Footer';
-import { Header } from './components/Header/Header';
+import { Navbar } from './components/Navbar/Navbar';
 import { Layout } from './Layout';
 
 function App() {
     return (
         <Layout>
             <BrowserRouter>
-                <Header text='Wordle' />
+                <Navbar text='Wordle' />
                 <AppRoutes />
                 <Footer />
             </BrowserRouter>

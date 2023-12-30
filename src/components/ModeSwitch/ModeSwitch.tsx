@@ -1,5 +1,5 @@
-import { ReactComponent as IconSun } from '../../assets/icon-sun.svg';
 import { ReactComponent as IconMoon } from '../../assets/icon-moon.svg';
+import { ReactComponent as IconSun } from '../../assets/icon-sun.svg';
 import { useDarkMode } from '../../hooks/useDarkMode';
 
 export const ModeSwitch = () => {
@@ -23,7 +23,7 @@ export const ModeSwitch = () => {
                 <label htmlFor='toggle'>
                     <span className='block h-0 w-0 opacity-0'>Mode toggle</span>
                     <span className='group flex h-[1.4rem] w-[2.8rem] cursor-pointer items-center rounded-full bg-white p-[0.4rem]'>
-                        <span className='toggle-dot bg-violet-dark group-hover:bg-violet-light h-[0.8rem] w-[0.8rem] rounded-full duration-300 ease-in-out'></span>
+                        <span className='toggle-dot h-[0.8rem] w-[0.8rem] rounded-full bg-violet-dark duration-300 ease-in-out group-hover:bg-violet-light'></span>
                     </span>
                 </label>
             </div>
