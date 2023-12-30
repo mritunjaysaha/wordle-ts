@@ -13,7 +13,7 @@ export default function SignUp() {
 
     return (
         <AuthLayout>
-            <div className='m-auto w-full px-4 md:w-1/2 md:px-0'>
+            <div className='m-auto w-full px-4 md:px-40 lg:w-1/2 lg:px-0'>
                 {/* HEADER */}
                 <header className='mb-20 flex flex-col justify-center gap-1 text-center'>
                     <h3 className='text-3xl'>Create an account</h3>

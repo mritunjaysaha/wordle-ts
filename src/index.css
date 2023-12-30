@@ -40,7 +40,7 @@
 }
 
 .timeline-text-center {
-    @apply absolute left-0 top-4 mt-4 -translate-x-1/2 text-base text-slate-500;
+    @apply absolute left-0 top-4 mt-4 -translate-x-1/2 text-xs lg:text-base text-slate-500;
 }
 
 .timeline-state-number {
