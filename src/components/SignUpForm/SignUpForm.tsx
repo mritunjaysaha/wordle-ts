@@ -1,5 +1,12 @@
 import type { Dispatch, FC, SetStateAction } from 'react';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
+import { ROUTES } from '../../constants/routes';
+import { createAccount } from '../../httpRequests/createAccount';
+import type { CreateAccountData } from '../../types/CreateAccountData';
 import type { FormTimelineStates } from '../../types/FormTimelineStates';
 
 type SignUpFormProps = {
@@ -8,8 +15,34 @@ type SignUpFormProps = {
 };
 
 export const SignUpForm: FC<SignUpFormProps> = ({ formTimelineState, setFormTimelineState }) => {
+    const navigate = useNavigate();
+
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+        getValues,
+    } = useForm<CreateAccountData>({ mode: 'onBlur' });
+
+    const [formErrors, setFormErrors] = useState<CreateAccountData>({
+        email: '',
+        firstName: '',
+        lastName: '',
+        password: '',
+    });
+
+    const onSubmit = async (data: CreateAccountData) => {
+        const res = await createAccount(data);
+
+        if (res.success) {
+            navigate(ROUTES.LOG_IN);
+        } else {
+            toast.error('Sign up failed');
+        }
+    };
+
     return (
-        <form>
+        <form onSubmit={handleSubmit(onSubmit)}>
             {formTimelineState === 'email' && (
                 <>
                     <div className='form-input-container'>
@@ -18,14 +51,34 @@ export const SignUpForm: FC<SignUpFormProps> = ({ formTimelineState, setFormTime
                         </label>
                         <input
                             id='email'
+                            type='email'
                             className='form-input'
                             placeholder='Enter your email address'
+                            {...register('email', {
+                                required: 'Email is required',
+                                pattern: {
+                                    value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                                    message: 'Please enter a valid email',
+                                },
+                            })}
                         />
+                        <p className='min-h-4 text-xs text-red-400'>
+                            {errors.email ? errors.email.message : formErrors.email}
+                        </p>
                     </div>
                     <button
                         type='button'
                         onClick={() => {
-                            setFormTimelineState('info');
+                            const email = getValues('email');
+
+                            if (!errors.email && email) {
+                                setFormTimelineState('info');
+                            } else if (!email) {
+                                setFormErrors((prevFormErrors) => ({
+                                    ...prevFormErrors,
+                                    email: 'Email is required',
+                                }));
+                            }
                         }}
                         className='form-button'
                     >
@@ -66,9 +119,25 @@ export const SignUpForm: FC<SignUpFormProps> = ({ formTimelineState, setFormTime
                         <label htmlFor='password' className='form-label'>
                             Enter a password
                         </label>
-                        <input id='password' className='form-input' placeholder='*************' />
+                        <input
+                            id='password'
+                            type='password'
+                            className='form-input'
+                            placeholder='*************'
+                            {...register('password', {
+                                required: 'Password is required',
+                                minLength: 8,
+                            })}
+                        />
+                        <p className='min-h-4 text-xs text-red-400'>
+                            {errors.password && errors.password.message}
+                        </p>
+                        {JSON.stringify(errors)}
                     </div>
-                    <button className='form-button'>Submit</button>
+
+                    <button type='submit' className='form-button'>
+                        Submit
+                    </button>
                 </>
             )}
         </form>

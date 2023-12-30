@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import { Toaster } from 'react-hot-toast';
 import Modal from 'react-responsive-modal';
 
 import { Board } from '../components/Board/Board';
@@ -64,7 +63,6 @@ function Home() {
                     usedKeys={usedKeys}
                 />
             </main>
-            <Toaster />
 
             <Modal
                 open={open}

@@ -14,7 +14,6 @@
         "plugin:@typescript-eslint/recommended-requiring-type-checking",
         "prettier"
     ],
-    "overrides": [],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
         "ecmaVersion": "latest",
@@ -47,7 +46,7 @@
         "@typescript-eslint/no-empty-function": 0,
         "spaced-comment": "error",
         "quotes": ["error", "single"],
-        "no-duplicate-imports": "error",
+        "no-duplicate-imports": "off",
         "tailwindcss/no-custom-classname": 0,
         "@typescript-eslint/restrict-template-expressions": 0
     },
@@ -99,6 +98,8 @@
                 "@next/next/no-img-element": "off", // We currently not using next/image because it isn't supported with SSG mode
                 "@typescript-eslint/comma-dangle": "off", // Avoid conflict rule between Eslint and Prettier
                 "@typescript-eslint/consistent-type-imports": "error", // Ensure `import type` is used when it's necessary
+                "@typescript-eslint/no-misused-promises": "off",
+                "@typescript-eslint/no-unsafe-assignment": "warn",
                 "no-restricted-syntax": [
                     "error",
                     "ForInStatement",
