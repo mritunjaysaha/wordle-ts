@@ -37,6 +37,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({ formTimelineState, setFormTime
     const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
 
     const onSubmit = async (data: CreateAccountData) => {
+        console.log('[onSubmit]');
         const res = await createAccount(data);
 
         if (res.success) {
@@ -163,7 +164,10 @@ export const SignUpForm: FC<SignUpFormProps> = ({ formTimelineState, setFormTime
                                 className='w-full outline-none'
                                 {...register('password', {
                                     required: 'Password is required',
-                                    minLength: 8,
+                                    minLength: {
+                                        value: 8,
+                                        message: 'Password must be at least 8 characters',
+                                    },
                                 })}
                             />
                             <button type='button' onClick={handlePasswordVisibility}>

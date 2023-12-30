@@ -8,7 +8,7 @@ type HorizontalTimelineProps = {
 
 export const HorizontalTimeline: FC<HorizontalTimelineProps> = ({ formTimelineState }) => {
     return (
-        <ol className='mb-8 items-center justify-center sm:flex'>
+        <ol className='mb-8 hidden items-center justify-center sm:flex'>
             <li className='relative mb-6 w-full sm:mb-0'>
                 <div className='flex items-center'>
                     <div className='timeline-state-number'>1</div>
