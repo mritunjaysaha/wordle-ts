@@ -28,7 +28,7 @@ export default function SignUp() {
                 <div>
                     {/* SIGN UP TIMELINE */}
                     {/* <div></div> */}
-                    <HorizontalTimeline />
+                    <HorizontalTimeline formTimelineState={formTimelineState} />
                     {/* SIGN UP FORM */}
                     <SignUpForm
                         formTimelineState={formTimelineState}
