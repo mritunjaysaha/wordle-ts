@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
+import { HorizontalTimeline } from '../components/HorizontalTimeline/HorizontalTimeline';
 import { SignUpForm } from '../components/SignUpForm/SignUpForm';
 import { ROUTES } from '../constants/routes';
 import { AuthLayout } from '../Layouts/AuthLayout';
@@ -26,7 +27,8 @@ export default function SignUp() {
                 {/* FORM CONTAINER */}
                 <div>
                     {/* SIGN UP TIMELINE */}
-                    <div></div>
+                    {/* <div></div> */}
+                    <HorizontalTimeline />
                     {/* SIGN UP FORM */}
                     <SignUpForm
                         formTimelineState={formTimelineState}
