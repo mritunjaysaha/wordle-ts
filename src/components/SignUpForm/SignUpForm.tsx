@@ -1,5 +1,5 @@
 import type { Dispatch, FC, SetStateAction } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
@@ -24,6 +24,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({ formTimelineState, setFormTime
         handleSubmit,
         formState: { errors },
         getValues,
+        setFocus,
     } = useForm<CreateAccountData>({ mode: 'onBlur' });
 
     const [formErrors, setFormErrors] = useState<CreateAccountData>({
@@ -49,6 +50,33 @@ export const SignUpForm: FC<SignUpFormProps> = ({ formTimelineState, setFormTime
         setIsPasswordVisible((prev) => !prev);
     };
 
+    const handleEmailSubmit = () => {
+        const email = getValues('email');
+
+        if (!errors.email && email) {
+            setFormTimelineState('info');
+            setTimeout(() => {
+                setFocus('firstName');
+            }, 0);
+        } else if (!email) {
+            setFormErrors((prevFormErrors) => ({
+                ...prevFormErrors,
+                email: 'Email is required',
+            }));
+        }
+    };
+
+    const handleInfoSubmit = () => {
+        setFormTimelineState('password');
+        setTimeout(() => {
+            setFocus('password');
+        }, 0);
+    };
+
+    useEffect(() => {
+        setFocus('email');
+    }, []);
+
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             {formTimelineState === 'email' && (
@@ -69,27 +97,19 @@ export const SignUpForm: FC<SignUpFormProps> = ({ formTimelineState, setFormTime
                                     message: 'Please enter a valid email',
                                 },
                             })}
+                            onKeyDown={(e) => {
+                                if (e.key !== 'Enter') return;
+
+                                e.preventDefault();
+
+                                handleEmailSubmit();
+                            }}
                         />
                         <p className='min-h-4 text-xs text-red-400'>
                             {errors.email ? errors.email.message : formErrors.email}
                         </p>
                     </div>
-                    <button
-                        type='button'
-                        onClick={() => {
-                            const email = getValues('email');
-
-                            if (!errors.email && email) {
-                                setFormTimelineState('info');
-                            } else if (!email) {
-                                setFormErrors((prevFormErrors) => ({
-                                    ...prevFormErrors,
-                                    email: 'Email is required',
-                                }));
-                            }
-                        }}
-                        className='form-button'
-                    >
+                    <button type='button' onClick={handleEmailSubmit} className='form-button'>
                         Next
                     </button>
                 </>
@@ -121,13 +141,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({ formTimelineState, setFormTime
                         </div>
                     </div>
 
-                    <button
-                        type='button'
-                        onClick={() => {
-                            setFormTimelineState('password');
-                        }}
-                        className='form-button'
-                    >
+                    <button type='button' onClick={handleInfoSubmit} className='form-button'>
                         Next
                     </button>
                 </>
@@ -138,12 +152,15 @@ export const SignUpForm: FC<SignUpFormProps> = ({ formTimelineState, setFormTime
                         <label htmlFor='password' className='form-label'>
                             Enter a password
                         </label>
-                        <div className='form-input flex items-center'>
+                        <div
+                            tabIndex={-1}
+                            className='form-input flex items-center focus-within:outline focus-within:outline-2'
+                        >
                             <input
                                 id='password'
                                 type={!isPasswordVisible ? 'password' : 'text'}
                                 placeholder='*************'
-                                className='w-full'
+                                className='w-full outline-none'
                                 {...register('password', {
                                     required: 'Password is required',
                                     minLength: 8,
