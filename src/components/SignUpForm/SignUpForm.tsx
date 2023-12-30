@@ -93,15 +93,26 @@ export const SignUpForm: FC<SignUpFormProps> = ({ formTimelineState, setFormTime
                             <label htmlFor='first-name' className='form-label'>
                                 First Name
                             </label>
-                            <input id='first-name' className='form-input' placeholder='John' />
+                            <input
+                                id='first-name'
+                                className='form-input'
+                                placeholder='John'
+                                {...register('firstName')}
+                            />
                         </div>
                         <div className='form-input-container'>
                             <label htmlFor='last-name' className='form-label'>
                                 Last Name
                             </label>
-                            <input id='last-name' className='form-input' placeholder='Doe' />
+                            <input
+                                id='last-name'
+                                className='form-input'
+                                placeholder='Doe'
+                                {...register('lastName')}
+                            />
                         </div>
                     </div>
+
                     <button
                         type='button'
                         onClick={() => {
@@ -132,7 +143,6 @@ export const SignUpForm: FC<SignUpFormProps> = ({ formTimelineState, setFormTime
                         <p className='min-h-4 text-xs text-red-400'>
                             {errors.password && errors.password.message}
                         </p>
-                        {JSON.stringify(errors)}
                     </div>
 
                     <button type='submit' className='form-button'>
