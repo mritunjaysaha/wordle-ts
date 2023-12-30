@@ -4,6 +4,8 @@ import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
+import { ReactComponent as IconPasswordHidden } from '../../assets/passwordHidden.svg';
+import { ReactComponent as IconPasswordVisible } from '../../assets/passwordVisible.svg';
 import { ROUTES } from '../../constants/routes';
 import { createAccount } from '../../httpRequests/createAccount';
 import type { CreateAccountData } from '../../types/CreateAccountData';
@@ -31,6 +33,8 @@ export const SignUpForm: FC<SignUpFormProps> = ({ formTimelineState, setFormTime
         password: '',
     });
 
+    const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
+
     const onSubmit = async (data: CreateAccountData) => {
         const res = await createAccount(data);
 
@@ -39,6 +43,10 @@ export const SignUpForm: FC<SignUpFormProps> = ({ formTimelineState, setFormTime
         } else {
             toast.error('Sign up failed');
         }
+    };
+
+    const handlePasswordVisibility = () => {
+        setIsPasswordVisible((prev) => !prev);
     };
 
     return (
@@ -130,16 +138,25 @@ export const SignUpForm: FC<SignUpFormProps> = ({ formTimelineState, setFormTime
                         <label htmlFor='password' className='form-label'>
                             Enter a password
                         </label>
-                        <input
-                            id='password'
-                            type='password'
-                            className='form-input'
-                            placeholder='*************'
-                            {...register('password', {
-                                required: 'Password is required',
-                                minLength: 8,
-                            })}
-                        />
+                        <div className='form-input flex items-center'>
+                            <input
+                                id='password'
+                                type={!isPasswordVisible ? 'password' : 'text'}
+                                placeholder='*************'
+                                className='w-full'
+                                {...register('password', {
+                                    required: 'Password is required',
+                                    minLength: 8,
+                                })}
+                            />
+                            <button type='button' onClick={handlePasswordVisibility}>
+                                {isPasswordVisible ? (
+                                    <IconPasswordVisible />
+                                ) : (
+                                    <IconPasswordHidden />
+                                )}
+                            </button>
+                        </div>
                         <p className='min-h-4 text-xs text-red-400'>
                             {errors.password && errors.password.message}
                         </p>
