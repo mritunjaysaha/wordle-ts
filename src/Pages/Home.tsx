@@ -5,8 +5,8 @@ import Modal from 'react-responsive-modal';
 import { Board } from '../components/Board/Board';
 import { Keypad } from '../components/Keypad/Keypad';
 import { ModalContent } from '../components/Modal/ModalContent';
-import { WordleContext } from '../components/store/context';
 import { useStore } from '../hooks/useStore';
+import { WordleContext } from '../store/context';
 
 function Home() {
     const {
