@@ -30,7 +30,7 @@ export default function LogIn() {
 
     return (
         <AuthLayout>
-            <div className='flex w-1/4 flex-col items-center justify-center rounded-lg border px-14 py-10'>
+            <div className='flex w-11/12 flex-col items-center justify-center rounded-lg border px-8 py-10 md:w-10/12 lg:w-1/2 lg:px-14'>
                 <h3 className='text-2xl'>Sign in</h3>
 
                 <form className='w-full' onSubmit={handleSubmit(onSubmit)}>
