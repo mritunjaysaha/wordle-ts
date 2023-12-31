@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { ReactComponent as IconPasswordHidden } from '../../assets/passwordHidden.svg';
 import { ReactComponent as IconPasswordVisible } from '../../assets/passwordVisible.svg';
 import { ROUTES } from '../../constants/routes';
-import { createAccount } from '../../httpRequests/createAccount';
+import { createAccount } from '../../requests/httpCalls/createAccount';
 import type { CreateAccountData } from '../../types/CreateAccountData';
 import type { FormTimelineStates } from '../../types/FormTimelineStates';
 

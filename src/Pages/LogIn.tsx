@@ -3,8 +3,9 @@ import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
 import { ROUTES } from '../constants/routes';
-import { login } from '../httpRequests/login';
 import { AuthLayout } from '../Layouts/AuthLayout';
+import { login } from '../requests/httpCalls/login';
+import { setAuthTokenToInstance } from '../requests/utils/setAuthTokenToInstance';
 import type { LoginData } from '../types/LoginData';
 
 export default function LogIn() {
@@ -20,6 +21,8 @@ export default function LogIn() {
 
         if (res.success) {
             navigate(ROUTES.HOME);
+
+            setAuthTokenToInstance(res.token);
         } else {
             toast.error('Failed to log in');
         }

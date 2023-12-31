@@ -1,5 +1,5 @@
-import type { LoginData } from '../types/LoginData';
-import type { LogInResponse } from '../types/LogInResponse';
+import type { LoginData } from '../../types/LoginData';
+import type { LogInResponse } from '../../types/LogInResponse';
 
 export const login = async (data: LoginData): Promise<LogInResponse> => {
     const baseUrl = import.meta.env.VITE_BASE_URL as string;

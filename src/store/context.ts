@@ -7,8 +7,3 @@ type WordleContextType = {
 export const WordleContext = createContext<WordleContextType>({
     onIncrementScore: () => {},
 });
-
-// type AuthContextType = {
-//     isAuthenticated: boolean;
-//     user: UserInfo;
-// };

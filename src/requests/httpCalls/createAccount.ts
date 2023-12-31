@@ -1,5 +1,5 @@
-import type { BaseResponse } from '../types/BaseResponse';
-import type { CreateAccountData } from '../types/CreateAccountData';
+import type { BaseResponse } from '../../types/BaseResponse';
+import type { CreateAccountData } from '../../types/CreateAccountData';
 
 export async function createAccount(data: CreateAccountData): Promise<BaseResponse> {
     const baseUrl = import.meta.env.VITE_BASE_URL as string;
