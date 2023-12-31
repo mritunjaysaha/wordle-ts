@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { ROUTES } from '../constants/routes';
+import { getUser } from '../requests/httpCalls/getUser';
 import { setAuthTokenToInstance } from '../requests/utils/setAuthTokenToInstance';
 import type { UserInfo } from '../types/UserInfo';
 import { AuthContext } from './AuthContext';
@@ -27,6 +28,12 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
         email: '',
         solvedWordsCount: 0,
     });
+
+    const getUserDetails = async (email: string) => {
+        const res = await getUser(email);
+
+        setUser(res.user);
+    };
 
     useEffect(() => {
         const token = window.localStorage.getItem('token');
@@ -52,9 +59,14 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     }, []);
 
     useEffect(() => {
-        // if (isAuthenticated && ) {
-        // }
+        if (isAuthenticated && user.email) {
+            getUserDetails(user.email);
+        }
     }, [isAuthenticated]);
+
+    useEffect(() => {
+        console.log('[watched]', { isAuthenticated, user });
+    }, [isAuthenticated, user]);
 
     return (
         <AuthContext.Provider value={{ isAuthenticated, user, setIsAuthenticated }}>

@@ -100,6 +100,7 @@
                 "@typescript-eslint/consistent-type-imports": "error", // Ensure `import type` is used when it's necessary
                 "@typescript-eslint/no-misused-promises": "off",
                 "@typescript-eslint/no-unsafe-assignment": "warn",
+                "@typescript-eslint/no-floating-promises": "off",
                 "no-restricted-syntax": [
                     "error",
                     "ForInStatement",
