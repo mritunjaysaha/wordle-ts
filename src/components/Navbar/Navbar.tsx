@@ -1,7 +1,9 @@
+import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 
 import { ROUTES } from '../../constants/routes';
 import { useAuthContext } from '../../hooks/useAuthContext';
+import { logout } from '../../requests/httpCalls/logout';
 import { ModeSwitch } from '../ModeSwitch/ModeSwitch';
 
 interface HeaderProps {
@@ -9,7 +11,17 @@ interface HeaderProps {
 }
 
 export const Navbar = ({ text }: HeaderProps) => {
-    const { isAuthenticated } = useAuthContext();
+    const { isAuthenticated, setIsAuthenticated } = useAuthContext();
+
+    const handleLogOutClick = async () => {
+        const res = await logout();
+
+        if (res.success) {
+            setIsAuthenticated(false);
+        } else {
+            toast.error('Failed to log out');
+        }
+    };
 
     return (
         <header className='bg-primary flex justify-between bg-violet-dark px-4 py-2 text-center font-bold text-white'>
@@ -18,12 +30,14 @@ export const Navbar = ({ text }: HeaderProps) => {
             </Link>
             <div className='flex gap-4 align-middle'>
                 <ModeSwitch />
-                {!isAuthenticated && (
+                {!isAuthenticated ? (
                     <>
                         <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
                         <Link to={ROUTES.LOG_IN}>Log In</Link>
                     </>
-                )}{' '}
+                ) : (
+                    <button onClick={handleLogOutClick}>Log out</button>
+                )}
             </div>
         </header>
     );
