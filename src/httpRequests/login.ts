@@ -1,6 +1,5 @@
 import type { LoginData } from '../types/LoginData';
 import type { LogInResponse } from '../types/LogInResponse';
-import type { UserInfo } from '../types/UserInfo';
 
 export const login = async (data: LoginData): Promise<LogInResponse> => {
     const baseUrl = import.meta.env.VITE_BASE_URL as string;
@@ -9,7 +8,6 @@ export const login = async (data: LoginData): Promise<LogInResponse> => {
         return {
             success: false,
             message: 'BASE URL NOT DEFINED IN ENV',
-            user: {} as UserInfo,
             token: '',
         };
     }
