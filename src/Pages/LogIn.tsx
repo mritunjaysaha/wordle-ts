@@ -3,6 +3,7 @@ import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
 import { ROUTES } from '../constants/routes';
+import { useAuthContext } from '../hooks/useAuthContext';
 import { AuthLayout } from '../Layouts/AuthLayout';
 import { login } from '../requests/httpCalls/login';
 import { setAuthTokenToInstance } from '../requests/utils/setAuthTokenToInstance';
@@ -10,6 +11,8 @@ import type { LoginData } from '../types/LoginData';
 
 export default function LogIn() {
     const navigate = useNavigate();
+    const { setIsAuthenticated } = useAuthContext();
+
     const {
         register,
         handleSubmit,
@@ -23,6 +26,7 @@ export default function LogIn() {
             navigate(ROUTES.HOME);
 
             setAuthTokenToInstance(res.token);
+            setIsAuthenticated(true);
         } else {
             toast.error('Failed to log in');
         }
