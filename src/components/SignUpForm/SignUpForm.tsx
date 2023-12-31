@@ -110,7 +110,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({ formTimelineState, setFormTime
                             {errors.email ? errors.email.message : formErrors.email}
                         </p>
                     </div>
-                    <button type='button' onClick={handleEmailSubmit} className='form-button'>
+                    <button type='button' onClick={handleEmailSubmit} className='form-button mb-20'>
                         Next
                     </button>
                 </>
@@ -142,7 +142,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({ formTimelineState, setFormTime
                         </div>
                     </div>
 
-                    <button type='button' onClick={handleInfoSubmit} className='form-button'>
+                    <button type='button' onClick={handleInfoSubmit} className='form-button mb-20'>
                         Next
                     </button>
                 </>
@@ -183,7 +183,7 @@ export const SignUpForm: FC<SignUpFormProps> = ({ formTimelineState, setFormTime
                         </p>
                     </div>
 
-                    <button type='submit' className='form-button'>
+                    <button type='submit' className='form-button mb-20'>
                         Submit
                     </button>
                 </>
