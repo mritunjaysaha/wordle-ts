@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { ROUTES } from '../constants/routes';
 import { useAuthContext } from '../hooks/useAuthContext';
@@ -34,44 +34,55 @@ export default function LogIn() {
 
     return (
         <AuthLayout>
-            <div className='flex w-11/12 flex-col items-center justify-center rounded-lg border px-8 py-10 md:w-10/12 lg:w-1/2 lg:px-14'>
-                <h3 className='text-2xl'>Sign in</h3>
+            <div className='flex w-11/12 flex-col gap-8 md:w-10/12 lg:w-1/2 2xl:w-1/3'>
+                <div className='flex  flex-col items-center justify-center rounded-lg border px-8 py-10 lg:px-14'>
+                    <h3 className='text-2xl'>Sign in</h3>
 
-                <form className='w-full' onSubmit={handleSubmit(onSubmit)}>
-                    <div className='form-input-container'>
-                        <label className='form-label' htmlFor='email'>
-                            Email
-                        </label>
-                        <input
-                            className='form-input'
-                            {...register('email', {
-                                required: 'Email is required',
-                                pattern: {
-                                    value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                                    message: 'Please enter a valid email',
-                                },
-                            })}
-                        />
-                        <p className='min-h-4 text-red-400'>
-                            {errors.email && errors.email.message}
-                        </p>
-                    </div>
-                    <div className='form-input-container'>
-                        <label className='form-label' htmlFor='email'>
-                            Password
-                        </label>
-                        <input
-                            type='password'
-                            className='form-input'
-                            {...register('password', { required: true })}
-                        />
-                        <p className='min-h-4 text-red-400'>
-                            {errors.password && errors.password.message}
-                        </p>
-                    </div>
+                    <form className='w-full' onSubmit={handleSubmit(onSubmit)}>
+                        <div className='form-input-container'>
+                            <label className='form-label' htmlFor='email'>
+                                Email
+                            </label>
+                            <input
+                                className='form-input'
+                                {...register('email', {
+                                    required: 'Email is required',
+                                    pattern: {
+                                        value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                                        message: 'Please enter a valid email',
+                                    },
+                                })}
+                            />
+                            <p className='min-h-4 text-red-400'>
+                                {errors.email && errors.email.message}
+                            </p>
+                        </div>
+                        <div className='form-input-container'>
+                            <label className='form-label' htmlFor='email'>
+                                Password
+                            </label>
+                            <input
+                                type='password'
+                                className='form-input'
+                                {...register('password', { required: true })}
+                            />
+                            <p className='min-h-4 text-red-400'>
+                                {errors.password && errors.password.message}
+                            </p>
+                        </div>
 
-                    <button className='form-button'>Log in</button>
-                </form>
+                        <button className='form-button'>Log in</button>
+                    </form>
+                </div>
+
+                <div className='border border-slate-300'></div>
+
+                <Link
+                    to={ROUTES.SIGN_UP}
+                    className='flex h-16 items-center justify-center rounded-full border  border-black text-xl transition duration-300 ease-in-out hover:bg-slate-100'
+                >
+                    Create an account
+                </Link>
             </div>
         </AuthLayout>
     );
