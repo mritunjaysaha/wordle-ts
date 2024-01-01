@@ -1,7 +1,9 @@
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 
+import { Input } from '../components/Input/Input';
 import { ROUTES } from '../constants/routes';
 import { useAuthContext } from '../hooks/useAuthContext';
 import { AuthLayout } from '../Layouts/AuthLayout';
@@ -17,6 +19,7 @@ export default function LogIn() {
         register,
         handleSubmit,
         formState: { errors },
+        setFocus,
     } = useForm<LoginData>({ mode: 'onSubmit' });
 
     const onSubmit = async (data: LoginData) => {
@@ -32,6 +35,10 @@ export default function LogIn() {
         }
     };
 
+    useEffect(() => {
+        setFocus('email');
+    }, []);
+
     return (
         <AuthLayout>
             <div className='flex w-11/12 flex-col gap-8 md:w-10/12 lg:w-1/2 2xl:w-1/3'>
@@ -39,37 +46,31 @@ export default function LogIn() {
                     <h3 className='text-2xl'>Sign in</h3>
 
                     <form className='w-full' onSubmit={handleSubmit(onSubmit)}>
-                        <div className='form-input-container'>
-                            <label className='form-label' htmlFor='email'>
-                                Email
-                            </label>
-                            <input
-                                className='form-input'
-                                {...register('email', {
-                                    required: 'Email is required',
-                                    pattern: {
-                                        value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                                        message: 'Please enter a valid email',
-                                    },
-                                })}
-                            />
-                            <p className='min-h-4 text-red-400'>
-                                {errors.email && errors.email.message}
-                            </p>
-                        </div>
-                        <div className='form-input-container'>
-                            <label className='form-label' htmlFor='email'>
-                                Password
-                            </label>
-                            <input
-                                type='password'
-                                className='form-input'
-                                {...register('password', { required: true })}
-                            />
-                            <p className='min-h-4 text-red-400'>
-                                {errors.password && errors.password.message}
-                            </p>
-                        </div>
+                        <Input
+                            id='email'
+                            label='Email'
+                            errors={errors}
+                            register={register}
+                            registerKey='email'
+                            registerOptions={{
+                                required: 'Email is required',
+                                pattern: {
+                                    value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                                    message: 'Please enter a valid email',
+                                },
+                            }}
+                        />
+                        <Input
+                            id='password'
+                            type='password'
+                            label='Password'
+                            errors={errors}
+                            register={register}
+                            registerKey='password'
+                            registerOptions={{
+                                required: 'Password is required',
+                            }}
+                        />
 
                         <button className='form-button'>Log in</button>
                     </form>
