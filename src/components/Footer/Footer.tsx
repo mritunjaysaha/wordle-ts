@@ -6,12 +6,14 @@ export const Footer = () => {
             <p className='flex items-center justify-center'>
                 Made by&nbsp;
                 <a
-                    className='flex items-center justify-center'
+                    rel='noopener noreferrer'
+                    target='_blank'
                     href='https://github.com/mritunjaysaha'
+                    className='flex items-center justify-center'
                 >
                     Mritunjay&nbsp;
-                    <span className='text-white-500 hover:underline'>
-                        <IconGitHub className='fill-current h-5 w-5' />
+                    <span className='text-white hover:underline'>
+                        <IconGitHub className='h-5 w-5 fill-current' />
                     </span>
                 </a>
             </p>

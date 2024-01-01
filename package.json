@@ -13,18 +13,24 @@
         "check-types": "tsc --noEmit --pretty && tsc --noEmit --pretty"
     },
     "dependencies": {
+        "axios": "^1.6.3",
+        "jwt-decode": "^4.0.0",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
+        "react-hook-form": "^7.49.2",
         "react-hot-toast": "^2.4.0",
         "react-responsive-modal": "^6.4.1",
+        "react-router-dom": "^6.21.1",
         "vite-plugin-svgr": "^2.4.0"
     },
     "devDependencies": {
         "@commitlint/cli": "^17.4.4",
         "@commitlint/config-conventional": "^17.4.4",
         "@commitlint/cz-commitlint": "^17.4.4",
+        "@types/axios": "^0.14.0",
         "@types/react": "^18.0.27",
         "@types/react-dom": "^18.0.10",
+        "@types/react-router-dom": "^5.3.3",
         "@vitejs/plugin-react": "^3.1.0",
         "autoprefixer": "^10.4.13",
         "commitizen": "^4.3.0",
