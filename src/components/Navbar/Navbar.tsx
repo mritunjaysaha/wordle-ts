@@ -18,6 +18,7 @@ export const Navbar = ({ text }: HeaderProps) => {
 
         if (res.success) {
             setIsAuthenticated(false);
+            localStorage.removeItem('token');
         } else {
             toast.error('Failed to log out');
         }

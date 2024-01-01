@@ -1,15 +1,14 @@
-import type { Dispatch, FC, SetStateAction } from 'react';
-import { useEffect, useState } from 'react';
+import type { Dispatch, FC, KeyboardEvent, SetStateAction } from 'react';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
-import { ReactComponent as IconPasswordHidden } from '../../assets/passwordHidden.svg';
-import { ReactComponent as IconPasswordVisible } from '../../assets/passwordVisible.svg';
 import { ROUTES } from '../../constants/routes';
 import { createAccount } from '../../requests/httpCalls/createAccount';
 import type { CreateAccountData } from '../../types/CreateAccountData';
 import type { FormTimelineStates } from '../../types/FormTimelineStates';
+import { Input } from '../Input/Input';
 
 type SignUpFormProps = {
     formTimelineState: FormTimelineStates;
@@ -27,28 +26,16 @@ export const SignUpForm: FC<SignUpFormProps> = ({ formTimelineState, setFormTime
         setFocus,
     } = useForm<CreateAccountData>({ mode: 'onBlur' });
 
-    const [formErrors, setFormErrors] = useState<CreateAccountData>({
-        email: '',
-        firstName: '',
-        lastName: '',
-        password: '',
-    });
-
-    const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
-
     const onSubmit = async (data: CreateAccountData) => {
         console.log('[onSubmit]');
         const res = await createAccount(data);
 
         if (res.success) {
             navigate(ROUTES.LOG_IN);
+            toast.success('Sign up successful');
         } else {
             toast.error('Sign up failed');
         }
-    };
-
-    const handlePasswordVisibility = () => {
-        setIsPasswordVisible((prev) => !prev);
     };
 
     const handleEmailSubmit = () => {
@@ -59,11 +46,6 @@ export const SignUpForm: FC<SignUpFormProps> = ({ formTimelineState, setFormTime
             setTimeout(() => {
                 setFocus('firstName');
             }, 0);
-        } else if (!email) {
-            setFormErrors((prevFormErrors) => ({
-                ...prevFormErrors,
-                email: 'Email is required',
-            }));
         }
     };
 
@@ -74,6 +56,14 @@ export const SignUpForm: FC<SignUpFormProps> = ({ formTimelineState, setFormTime
         }, 0);
     };
 
+    const handleInputKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+        if (e.key !== 'Enter') return;
+
+        e.preventDefault();
+
+        handleEmailSubmit();
+    };
+
     useEffect(() => {
         setFocus('email');
     }, []);
@@ -82,34 +72,21 @@ export const SignUpForm: FC<SignUpFormProps> = ({ formTimelineState, setFormTime
         <form onSubmit={handleSubmit(onSubmit)}>
             {formTimelineState === 'email' && (
                 <>
-                    <div className='form-input-container'>
-                        <label htmlFor='email' className='form-label'>
-                            What&apos;s your email?
-                        </label>
-                        <input
-                            id='email'
-                            type='email'
-                            className='form-input'
-                            placeholder='Enter your email address'
-                            {...register('email', {
-                                required: 'Email is required',
-                                pattern: {
-                                    value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                                    message: 'Please enter a valid email',
-                                },
-                            })}
-                            onKeyDown={(e) => {
-                                if (e.key !== 'Enter') return;
-
-                                e.preventDefault();
-
-                                handleEmailSubmit();
-                            }}
-                        />
-                        <p className='min-h-4 text-xs text-red-400'>
-                            {errors.email ? errors.email.message : formErrors.email}
-                        </p>
-                    </div>
+                    <Input
+                        id='email'
+                        label={`What's your email?`}
+                        errors={errors}
+                        register={register}
+                        registerKey='email'
+                        registerOptions={{
+                            required: 'Email is required',
+                            pattern: {
+                                value: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                                message: 'Please enter a valid email',
+                            },
+                        }}
+                        onKeyDown={handleInputKeyDown}
+                    />
                     <button type='button' onClick={handleEmailSubmit} className='form-button mb-20'>
                         Next
                     </button>
@@ -118,28 +95,20 @@ export const SignUpForm: FC<SignUpFormProps> = ({ formTimelineState, setFormTime
             {formTimelineState === 'info' && (
                 <>
                     <div className='flex justify-between gap-10'>
-                        <div className='form-input-container'>
-                            <label htmlFor='first-name' className='form-label'>
-                                First Name
-                            </label>
-                            <input
-                                id='first-name'
-                                className='form-input'
-                                placeholder='John'
-                                {...register('firstName')}
-                            />
-                        </div>
-                        <div className='form-input-container'>
-                            <label htmlFor='last-name' className='form-label'>
-                                Last Name
-                            </label>
-                            <input
-                                id='last-name'
-                                className='form-input'
-                                placeholder='Doe'
-                                {...register('lastName')}
-                            />
-                        </div>
+                        <Input
+                            id='firstName'
+                            label='First Name'
+                            register={register}
+                            registerKey='firstName'
+                            placeholder='John'
+                        />
+                        <Input
+                            id='lastName'
+                            label='Last Name'
+                            register={register}
+                            registerKey='lastName'
+                            placeholder='Doe'
+                        />
                     </div>
 
                     <button type='button' onClick={handleInfoSubmit} className='form-button mb-20'>
@@ -149,40 +118,22 @@ export const SignUpForm: FC<SignUpFormProps> = ({ formTimelineState, setFormTime
             )}
             {formTimelineState === 'password' && (
                 <>
-                    <div className='form-input-container'>
-                        <label htmlFor='password' className='form-label'>
-                            Enter a password
-                        </label>
-                        <div
-                            tabIndex={-1}
-                            className='form-input flex items-center focus-within:outline focus-within:outline-2'
-                        >
-                            <input
-                                id='password'
-                                type={!isPasswordVisible ? 'password' : 'text'}
-                                placeholder='*************'
-                                className='w-full outline-none'
-                                {...register('password', {
-                                    required: 'Password is required',
-                                    minLength: {
-                                        value: 8,
-                                        message: 'Password must be at least 8 characters',
-                                    },
-                                })}
-                            />
-                            <button type='button' onClick={handlePasswordVisibility}>
-                                {isPasswordVisible ? (
-                                    <IconPasswordVisible />
-                                ) : (
-                                    <IconPasswordHidden />
-                                )}
-                            </button>
-                        </div>
-                        <p className='min-h-4 text-xs text-red-400'>
-                            {errors.password && errors.password.message}
-                        </p>
-                    </div>
-
+                    <Input
+                        id='password'
+                        type='password'
+                        label='Password'
+                        errors={errors}
+                        register={register}
+                        registerKey='password'
+                        registerOptions={{
+                            required: 'Password is required',
+                            minLength: {
+                                value: 8,
+                                message: 'Password must be at least 8 characters',
+                            },
+                        }}
+                        placeholder='*************'
+                    />
                     <button type='submit' className='form-button mb-20'>
                         Submit
                     </button>

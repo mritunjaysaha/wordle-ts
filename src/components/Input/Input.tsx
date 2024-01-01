@@ -15,7 +15,7 @@ type InputProps = InputHTMLAttributes<HTMLInputElement> & {
     errors?: FieldErrors<LoginData | CreateAccountData>;
     register: UseFormRegister<LoginData | CreateAccountData>;
     registerKey: RegisterKeys;
-    registerOptions: RegisterOptions<LoginData | CreateAccountData, RegisterKeys> | undefined;
+    registerOptions?: RegisterOptions<LoginData | CreateAccountData, RegisterKeys> | undefined;
 };
 
 export const Input: FC<InputProps> = ({
