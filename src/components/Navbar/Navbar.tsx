@@ -32,11 +32,17 @@ export const Navbar = ({ text }: HeaderProps) => {
                 <ModeSwitch />
                 {!isAuthenticated ? (
                     <>
-                        <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
-                        <Link to={ROUTES.LOG_IN}>Log In</Link>
+                        <Link to={ROUTES.SIGN_UP} className='text-lg'>
+                            Sign Up
+                        </Link>
+                        <Link to={ROUTES.LOG_IN} className='text-lg'>
+                            Log In
+                        </Link>
                     </>
                 ) : (
-                    <button onClick={handleLogOutClick}>Log out</button>
+                    <button onClick={handleLogOutClick} className='text-lg'>
+                        Log out
+                    </button>
                 )}
             </div>
         </header>
