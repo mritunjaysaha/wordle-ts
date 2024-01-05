@@ -1,6 +1,7 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
+import { Rings } from 'react-loader-spinner';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { Input } from '../components/Input/Input';
@@ -22,17 +23,23 @@ export default function LogIn() {
         setFocus,
     } = useForm<LoginData>({ mode: 'onSubmit' });
 
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+
     const onSubmit = async (data: LoginData) => {
+        setIsLoading(true);
         const res = await login(data);
 
         if (res.success) {
-            navigate(ROUTES.HOME);
+            setIsLoading(true);
 
             setAuthTokenToInstance(res.token);
             setIsAuthenticated(true);
+            navigate(ROUTES.HOME);
         } else {
             toast.error('Failed to log in');
         }
+
+        setIsLoading(false);
     };
 
     useEffect(() => {
@@ -72,7 +79,19 @@ export default function LogIn() {
                             }}
                         />
 
-                        <button className='form-button'>Log in</button>
+                        <button className='form-button flex items-center justify-center'>
+                            {!isLoading ? (
+                                'Log in'
+                            ) : (
+                                <Rings
+                                    visible={true}
+                                    height='50'
+                                    width='50'
+                                    color='#fafafa'
+                                    ariaLabel='rings-loading'
+                                />
+                            )}
+                        </button>
                     </form>
                 </div>
 
