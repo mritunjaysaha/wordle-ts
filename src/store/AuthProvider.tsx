@@ -35,6 +35,8 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
         setUser(res.user);
     };
 
+    const [openLeaderBoard, setOpenLeaderBoard] = useState<boolean>(false);
+
     useEffect(() => {
         const token = window.localStorage.getItem('token');
 
@@ -69,7 +71,15 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     }, [isAuthenticated, user]);
 
     return (
-        <AuthContext.Provider value={{ isAuthenticated, user, setIsAuthenticated }}>
+        <AuthContext.Provider
+            value={{
+                isAuthenticated,
+                user,
+                setIsAuthenticated,
+                openLeaderBoard,
+                setOpenLeaderBoard,
+            }}
+        >
             {children}
         </AuthContext.Provider>
     );
