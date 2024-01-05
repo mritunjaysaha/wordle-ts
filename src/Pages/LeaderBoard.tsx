@@ -1,34 +1,9 @@
-import { useEffect, useState } from 'react';
-
 import { TableLeaderBoardHead } from '../components/TableLeaderBoardHead/TableLeaderBoardHead';
 import { TableLeaderBoardRow } from '../components/TableLeaderBoardRow/TableLeaderBoardRow';
-import { useAuthContext } from '../hooks/useAuthContext';
-import { leaderBoard } from '../requests/httpCalls/leaderBoard';
-import type { LeaderBoardData } from '../types/LeaderBoardData';
+import { useLeaderBoard } from '../hooks/useLeaderBoard';
 
 export default function LeaderBoard() {
-    const {
-        isAuthenticated,
-        user: { email },
-    } = useAuthContext();
-
-    const [leaderBoardArr, setLeaderBoardArr] = useState<LeaderBoardData[]>([]);
-
-    const getLeaderBoard = async () => {
-        const res = await leaderBoard(email);
-
-        console.log('[leaderboard]', { res });
-
-        if (res.success) {
-            setLeaderBoardArr(res.users);
-        }
-    };
-
-    useEffect(() => {
-        if (isAuthenticated && email) {
-            getLeaderBoard();
-        }
-    }, [isAuthenticated]);
+    const { leaderBoardArr } = useLeaderBoard();
 
     return (
         <div className='absolute right-0 top-0 flex h-full flex-col bg-red-400 p-10 dark:bg-gray-800'>
