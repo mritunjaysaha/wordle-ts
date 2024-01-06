@@ -7,8 +7,9 @@ export const useAuthContext = () => {
         isAuthenticated,
         user,
         setIsAuthenticated,
-        openLeaderBoard,
-        setOpenLeaderBoard,
+        isLeaderBoardClicked,
+        handleOpenLeaderBoard,
+        handleCloseLeaderBoard,
         leaderBoardArr,
         setLeaderBoardArr,
     } = useContext(AuthContext);
@@ -17,8 +18,9 @@ export const useAuthContext = () => {
         user,
         isAuthenticated,
         setIsAuthenticated,
-        openLeaderBoard,
-        setOpenLeaderBoard,
+        isLeaderBoardClicked,
+        handleOpenLeaderBoard,
+        handleCloseLeaderBoard,
         leaderBoardArr,
         setLeaderBoardArr,
     } as const;

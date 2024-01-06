@@ -36,8 +36,16 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
         setUser(res.user);
     };
 
-    const [openLeaderBoard, setOpenLeaderBoard] = useState<boolean>(false);
+    const [isLeaderBoardClicked, setIsLeaderBoardClicked] = useState<boolean>(false);
     const [leaderBoardArr, setLeaderBoardArr] = useState<LeaderBoardData[]>([]);
+
+    const handleOpenLeaderBoard = () => {
+        setIsLeaderBoardClicked(true);
+    };
+
+    const handleCloseLeaderBoard = () => {
+        setIsLeaderBoardClicked(false);
+    };
 
     useEffect(() => {
         const token = window.localStorage.getItem('token');
@@ -78,10 +86,11 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
                 isAuthenticated,
                 user,
                 setIsAuthenticated,
-                openLeaderBoard,
-                setOpenLeaderBoard,
+                isLeaderBoardClicked,
                 leaderBoardArr,
                 setLeaderBoardArr,
+                handleOpenLeaderBoard,
+                handleCloseLeaderBoard,
             }}
         >
             {children}
