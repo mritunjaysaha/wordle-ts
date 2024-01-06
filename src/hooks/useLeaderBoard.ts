@@ -15,8 +15,6 @@ export const useLeaderBoard = () => {
     const getLeaderBoard = async () => {
         const res = await leaderBoard(email);
 
-        console.log('[leaderboard]', { res });
-
         if (res.success) {
             setLeaderBoardArr(res.users);
         }

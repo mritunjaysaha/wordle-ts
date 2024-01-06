@@ -8,8 +8,9 @@ type AuthContextType = {
     isAuthenticated: boolean;
     user: UserInfo;
     setIsAuthenticated: Dispatch<SetStateAction<boolean>>;
-    openLeaderBoard: boolean;
-    setOpenLeaderBoard: Dispatch<SetStateAction<boolean>>;
+    isLeaderBoardClicked: boolean;
+    handleOpenLeaderBoard: () => void;
+    handleCloseLeaderBoard: () => void;
     leaderBoardArr: LeaderBoardData[];
     setLeaderBoardArr: Dispatch<SetStateAction<LeaderBoardData[]>>;
 };

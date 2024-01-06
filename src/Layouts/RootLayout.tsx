@@ -6,13 +6,13 @@ import { useAuthContext } from '../hooks/useAuthContext';
 import LeaderBoard from '../Pages/LeaderBoard';
 
 export const RootLayout = ({ children }: { children: ReactNode }) => {
-    const { openLeaderBoard, setOpenLeaderBoard } = useAuthContext();
+    const { isLeaderBoardClicked, handleCloseLeaderBoard } = useAuthContext();
 
     return (
         <section className='flex h-screen flex-col'>
             {children}
-            {openLeaderBoard && (
-                <OutsideClickHandler onOutsideClick={() => setOpenLeaderBoard(false)}>
+            {isLeaderBoardClicked && (
+                <OutsideClickHandler onOutsideClick={handleCloseLeaderBoard}>
                     <LeaderBoard />
                 </OutsideClickHandler>
             )}

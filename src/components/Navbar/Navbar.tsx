@@ -11,7 +11,7 @@ interface HeaderProps {
 }
 
 export const Navbar = ({ text }: HeaderProps) => {
-    const { isAuthenticated, setIsAuthenticated, setOpenLeaderBoard } = useAuthContext();
+    const { isAuthenticated, setIsAuthenticated, handleOpenLeaderBoard } = useAuthContext();
 
     const handleLogOutClick = async () => {
         const res = await logout();
@@ -45,13 +45,7 @@ export const Navbar = ({ text }: HeaderProps) => {
                         Log out
                     </button>
                 )}
-                <button
-                    onClick={() => {
-                        setOpenLeaderBoard(true);
-                    }}
-                >
-                    Leader Board
-                </button>
+                <button onClick={handleOpenLeaderBoard}>Leader Board</button>
             </div>
         </header>
     );
