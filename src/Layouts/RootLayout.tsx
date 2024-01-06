@@ -1,3 +1,4 @@
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { ReactNode } from 'react';
 import { Toaster } from 'react-hot-toast';
 import OutsideClickHandler from 'react-outside-click-handler';
@@ -17,6 +18,7 @@ export const RootLayout = ({ children }: { children: ReactNode }) => {
                 </OutsideClickHandler>
             )}
             <Toaster />
+            <SpeedInsights />
         </section>
     );
 };
