@@ -13,7 +13,6 @@
         "check-types": "tsc --noEmit --pretty && tsc --noEmit --pretty"
     },
     "dependencies": {
-        "@vercel/speed-insights": "^1.0.2",
         "axios": "^1.6.3",
         "jwt-decode": "^4.0.0",
         "react": "^18.2.0",
