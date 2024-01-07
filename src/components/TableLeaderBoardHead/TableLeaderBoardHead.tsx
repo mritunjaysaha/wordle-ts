@@ -1,6 +1,6 @@
 export const TableLeaderBoardHead = () => {
     return (
-        <thead className='w-1/4 bg-gray-50 dark:bg-gray-700'>
+        <thead className='w-full bg-gray-50 dark:bg-gray-700'>
             <tr>
                 <th
                     scope='col'
