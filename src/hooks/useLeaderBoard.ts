@@ -2,14 +2,14 @@ import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 
 import { leaderBoard } from '../requests/httpCalls/leaderBoard';
+import { useAppContext } from './useAppContext';
 import { useAuthContext } from './useAuthContext';
 
 export const useLeaderBoard = () => {
+    const { leaderBoardArr, setLeaderBoardArr } = useAppContext();
     const {
         isAuthenticated,
         user: { email },
-        leaderBoardArr,
-        setLeaderBoardArr,
     } = useAuthContext();
 
     const getLeaderBoard = async () => {

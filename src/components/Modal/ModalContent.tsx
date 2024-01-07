@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 
-import { WordleContext } from '../../store/context';
+import { WordleContext } from '../../store/WordleContext';
 
 type ModalContentProps = {
     isCorrect: boolean;

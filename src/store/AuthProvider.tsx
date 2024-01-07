@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../constants/routes';
 import { getUser } from '../requests/httpCalls/getUser';
 import { setAuthTokenToInstance } from '../requests/utils/setAuthTokenToInstance';
-import type { LeaderBoardData } from '../types/LeaderBoardData';
 import type { UserInfo } from '../types/UserInfo';
 import { AuthContext } from './AuthContext';
 
@@ -22,7 +21,6 @@ type AuthJwtPayload = JwtPayload & {
 export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     const navigate = useNavigate();
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-    const [isGameModalClicked, setIsGameModalClicked] = useState<boolean>(false);
 
     const [user, setUser] = useState<UserInfo>({
         firstName: '',
@@ -35,25 +33,6 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
         const res = await getUser(email);
 
         setUser(res.user);
-    };
-
-    const [isLeaderBoardClicked, setIsLeaderBoardClicked] = useState<boolean>(false);
-    const [leaderBoardArr, setLeaderBoardArr] = useState<LeaderBoardData[]>([]);
-
-    const handleOpenLeaderBoard = () => {
-        setIsLeaderBoardClicked(true);
-    };
-
-    const handleCloseLeaderBoard = () => {
-        setIsLeaderBoardClicked(false);
-    };
-
-    const handleOpenGameModal = () => {
-        setIsGameModalClicked(true);
-    };
-
-    const handleCloseGameModal = () => {
-        setIsGameModalClicked(false);
     };
 
     useEffect(() => {
@@ -93,16 +72,8 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
         <AuthContext.Provider
             value={{
                 user,
-                leaderBoardArr,
                 isAuthenticated,
-                isGameModalClicked,
-                isLeaderBoardClicked,
                 setIsAuthenticated,
-                setLeaderBoardArr,
-                handleOpenGameModal,
-                handleCloseGameModal,
-                handleOpenLeaderBoard,
-                handleCloseLeaderBoard,
             }}
         >
             {children}
