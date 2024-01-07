@@ -1,13 +1,22 @@
-import { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
-import dictionary from '../utility/dictionary.json';
 import 'react-responsive-modal/styles.css';
+
+import { useState } from 'react';
+import toast from 'react-hot-toast';
+
+import type { TileProps } from '../components/Board/Tile';
+import { axiosInstance } from '../requests/config/axiosInstance';
 import { green, unused, used, yellow } from '../utility/constants';
-import { TileProps } from '../components/Board/Tile';
+import dictionary from '../utility/dictionary.json';
+import { useAuthContext } from './useAuthContext';
 import { useSuggestedWord } from './useSuggestedWord';
 
 export const useStore = () => {
     const { getWord, suggestedWord: solution } = useSuggestedWord();
+
+    const {
+        user: { email },
+        isAuthenticated,
+    } = useAuthContext();
 
     const [turn, setTurn] = useState<number>(0);
     const [currentGuess, setCurrentGuess] = useState<string>('');
@@ -92,6 +101,11 @@ export const useStore = () => {
         if (dictionary.includes(guess)) {
             // if the word is same as solution
             if (solution === guess) {
+                if (isAuthenticated) {
+                    axiosInstance.post(`${import.meta.env.VITE_BASE_URL}/api/v1/words/${email}`, {
+                        word: solution,
+                    });
+                }
                 setIsCorrect(true);
                 toast.success(solution, { duration: 2500 });
                 setTimeout(() => setOpen(true), 2000);
@@ -125,7 +139,7 @@ export const useStore = () => {
             return;
         }
         // if its enter then call word submit function
-        else if (key === 'Enter') {
+        if (key === 'Enter') {
             if (currentGuess.length < 5) {
                 // if less then 5 then show toast incomplete word or something
                 activateShake();
@@ -150,12 +164,16 @@ export const useStore = () => {
         setIsCorrect(false);
         setHistory([]);
         setUsedKeys({});
+        setKeyboardEnable(true);
     };
 
     const onIncrementScore = () => {
-        getWord();
-        resetStates();
         onCloseModal();
+        resetStates();
+
+        setTimeout(() => {
+            getWord();
+        }, 100);
     };
 
     return {
