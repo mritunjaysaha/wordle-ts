@@ -2,7 +2,7 @@ import { Tile } from '../Board/Tile';
 
 export const GameInstructionsModal = () => {
     return (
-        <div className='flex flex-col gap-2 bg-white'>
+        <div className='flex flex-col gap-2 bg-white dark:bg-gray-800'>
             <div>
                 <h3 className='text-2xl font-bold'>How To Play</h3>
                 <p>Guess the Wordle in 6 tries</p>

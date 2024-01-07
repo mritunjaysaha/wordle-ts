@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import Modal from 'react-responsive-modal';
 
+import { ReactComponent as IconClose } from '../assets/close.svg';
 import { Board } from '../components/Board/Board';
 import { GameInstructionsModal } from '../components/GameInstructionsModal/GameInstructionsModal';
 import { Keypad } from '../components/Keypad/Keypad';
@@ -80,9 +81,10 @@ function Home() {
                 open={isGameModalClicked}
                 center
                 onClose={handleCloseGameModal}
+                closeIcon={<IconClose />}
                 classNames={{
-                    modal: 'rounded p-8 w-1/2 2xl:w-1/4',
-                    closeButton: 'top-0 p-4 right-0',
+                    modal: 'rounded p-8 w-11/12 lg:w-1/2 2xl:w-1/4 dark:bg-gray-800 dark:text-white',
+                    closeButton: 'top-0 p-4 lg:right-0 dark:text-white current',
                 }}
             >
                 <GameInstructionsModal />
