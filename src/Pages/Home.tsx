@@ -2,8 +2,10 @@ import { useEffect } from 'react';
 import Modal from 'react-responsive-modal';
 
 import { Board } from '../components/Board/Board';
+import { GameInstructionsModal } from '../components/GameInstructionsModal/GameInstructionsModal';
 import { Keypad } from '../components/Keypad/Keypad';
 import { ModalContent } from '../components/Modal/ModalContent';
+import { useAuthContext } from '../hooks/useAuthContext';
 import { useStore } from '../hooks/useStore';
 import { WordleContext } from '../store/context';
 
@@ -24,6 +26,8 @@ function Home() {
         setKeyboardEnable,
         onIncrementScore,
     } = useStore();
+
+    const { isGameModalClicked, handleCloseGameModal } = useAuthContext();
 
     const handleKeyup = (e: KeyboardEvent) => {
         const { key } = e;
@@ -71,6 +75,17 @@ function Home() {
                 classNames={{ modal: 'rounded p-6', closeButton: 'top-0 p-0.5 right-0' }}
             >
                 <ModalContent isCorrect={isCorrect} solution={solution} turn={turn} />
+            </Modal>
+            <Modal
+                open={isGameModalClicked}
+                center
+                onClose={handleCloseGameModal}
+                classNames={{
+                    modal: 'rounded p-8 w-1/2 2xl:w-1/4',
+                    closeButton: 'top-0 p-4 right-0',
+                }}
+            >
+                <GameInstructionsModal />
             </Modal>
         </WordleContext.Provider>
     );

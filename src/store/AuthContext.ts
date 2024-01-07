@@ -5,13 +5,17 @@ import type { LeaderBoardData } from '../types/LeaderBoardData';
 import type { UserInfo } from '../types/UserInfo';
 
 type AuthContextType = {
-    isAuthenticated: boolean;
     user: UserInfo;
-    setIsAuthenticated: Dispatch<SetStateAction<boolean>>;
+    leaderBoardArr: LeaderBoardData[];
+    isAuthenticated: boolean;
+    isGameModalClicked: boolean;
     isLeaderBoardClicked: boolean;
+    setIsAuthenticated: Dispatch<SetStateAction<boolean>>;
     handleOpenLeaderBoard: () => void;
     handleCloseLeaderBoard: () => void;
-    leaderBoardArr: LeaderBoardData[];
+
+    handleOpenGameModal: () => void;
+    handleCloseGameModal: () => void;
     setLeaderBoardArr: Dispatch<SetStateAction<LeaderBoardData[]>>;
 };
 

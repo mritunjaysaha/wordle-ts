@@ -4,24 +4,30 @@ import { AuthContext } from '../store/AuthContext';
 
 export const useAuthContext = () => {
     const {
-        isAuthenticated,
         user,
-        setIsAuthenticated,
+        leaderBoardArr,
+        isAuthenticated,
+        isGameModalClicked,
         isLeaderBoardClicked,
+        setLeaderBoardArr,
+        setIsAuthenticated,
+        handleOpenGameModal,
+        handleCloseGameModal,
         handleOpenLeaderBoard,
         handleCloseLeaderBoard,
-        leaderBoardArr,
-        setLeaderBoardArr,
     } = useContext(AuthContext);
 
     return {
         user,
+        leaderBoardArr,
         isAuthenticated,
-        setIsAuthenticated,
+        isGameModalClicked,
         isLeaderBoardClicked,
+        setLeaderBoardArr,
+        setIsAuthenticated,
+        handleOpenGameModal,
+        handleCloseGameModal,
         handleOpenLeaderBoard,
         handleCloseLeaderBoard,
-        leaderBoardArr,
-        setLeaderBoardArr,
     } as const;
 };

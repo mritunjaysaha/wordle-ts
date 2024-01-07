@@ -22,6 +22,7 @@ type AuthJwtPayload = JwtPayload & {
 export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     const navigate = useNavigate();
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+    const [isGameModalClicked, setIsGameModalClicked] = useState<boolean>(false);
 
     const [user, setUser] = useState<UserInfo>({
         firstName: '',
@@ -45,6 +46,14 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
 
     const handleCloseLeaderBoard = () => {
         setIsLeaderBoardClicked(false);
+    };
+
+    const handleOpenGameModal = () => {
+        setIsGameModalClicked(true);
+    };
+
+    const handleCloseGameModal = () => {
+        setIsGameModalClicked(false);
     };
 
     useEffect(() => {
@@ -83,12 +92,15 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
     return (
         <AuthContext.Provider
             value={{
-                isAuthenticated,
                 user,
-                setIsAuthenticated,
-                isLeaderBoardClicked,
                 leaderBoardArr,
+                isAuthenticated,
+                isGameModalClicked,
+                isLeaderBoardClicked,
+                setIsAuthenticated,
                 setLeaderBoardArr,
+                handleOpenGameModal,
+                handleCloseGameModal,
                 handleOpenLeaderBoard,
                 handleCloseLeaderBoard,
             }}
