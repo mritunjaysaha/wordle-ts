@@ -2,24 +2,27 @@ import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 
 import { leaderBoard } from '../requests/httpCalls/leaderBoard';
-import type { LeaderBoardData } from '../types/LeaderBoardData';
+import { useAppContext } from './useAppContext';
 import { useAuthContext } from './useAuthContext';
 
 export const useLeaderBoard = () => {
-    // const {} = useAppContext();
+    const { leaderBoardArr, setLeaderBoardArr } = useAppContext();
     const {
         isAuthenticated,
         user: { email },
     } = useAuthContext();
 
-    const [leaderBoardArr, setLeaderBoardArr] = useState<LeaderBoardData[]>([]);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const getLeaderBoard = async () => {
+        setIsLoading(true);
         const res = await leaderBoard(email);
 
         if (res.success) {
             setLeaderBoardArr(res.users);
         }
+
+        setIsLoading(false);
     };
 
     useEffect(() => {
@@ -33,6 +36,7 @@ export const useLeaderBoard = () => {
     }, [isAuthenticated]);
 
     return {
+        isLoading,
         leaderBoardArr,
     } as const;
 };
