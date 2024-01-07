@@ -3,6 +3,7 @@ import toast from 'react-hot-toast';
 import OutsideClickHandler from 'react-outside-click-handler';
 import { Link } from 'react-router-dom';
 
+import { ReactComponent as IconQuestion } from '../../assets/question.svg';
 import { ROUTES } from '../../constants/routes';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import { logout } from '../../requests/httpCalls/logout';
@@ -145,7 +146,13 @@ export const Navbar = () => {
                             )}
 
                             <li>
-                                <button onClick={handleOpenGameModal}>How</button>
+                                <button
+                                    title='How to play?'
+                                    onClick={handleOpenGameModal}
+                                    className='h-4'
+                                >
+                                    <IconQuestion />
+                                </button>
                             </li>
 
                             <li>
