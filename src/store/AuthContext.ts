@@ -6,6 +6,7 @@ import type { UserInfo } from '../types/UserInfo';
 type AuthContextType = {
     user: UserInfo;
     isAuthenticated: boolean;
+    setUser: Dispatch<SetStateAction<UserInfo>>;
     setIsAuthenticated: Dispatch<SetStateAction<boolean>>;
 };
 

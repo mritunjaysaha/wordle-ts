@@ -14,13 +14,14 @@ import type { LoginData } from '../types/LoginData';
 
 export default function LogIn() {
     const navigate = useNavigate();
-    const { setIsAuthenticated } = useAuthContext();
+    const { setIsAuthenticated, setUser } = useAuthContext();
 
     const {
         register,
         handleSubmit,
         formState: { errors },
         setFocus,
+        getValues,
     } = useForm<LoginData>({ mode: 'onSubmit' });
 
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -32,6 +33,7 @@ export default function LogIn() {
         if (res.success) {
             setIsLoading(true);
 
+            setUser((prev) => ({ ...prev, email: getValues('email') }));
             setAuthTokenToInstance(res.token);
             setIsAuthenticated(true);
             navigate(ROUTES.HOME);

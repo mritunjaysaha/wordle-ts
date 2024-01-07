@@ -64,15 +64,12 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
         }
     }, [isAuthenticated]);
 
-    useEffect(() => {
-        console.log('[watched]', { isAuthenticated, user });
-    }, [isAuthenticated, user]);
-
     return (
         <AuthContext.Provider
             value={{
                 user,
                 isAuthenticated,
+                setUser,
                 setIsAuthenticated,
             }}
         >

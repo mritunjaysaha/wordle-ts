@@ -1,16 +1,18 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 
 import { leaderBoard } from '../requests/httpCalls/leaderBoard';
-import { useAppContext } from './useAppContext';
+import type { LeaderBoardData } from '../types/LeaderBoardData';
 import { useAuthContext } from './useAuthContext';
 
 export const useLeaderBoard = () => {
-    const { leaderBoardArr, setLeaderBoardArr } = useAppContext();
+    // const {} = useAppContext();
     const {
         isAuthenticated,
         user: { email },
     } = useAuthContext();
+
+    const [leaderBoardArr, setLeaderBoardArr] = useState<LeaderBoardData[]>([]);
 
     const getLeaderBoard = async () => {
         const res = await leaderBoard(email);
