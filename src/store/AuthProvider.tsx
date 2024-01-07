@@ -54,7 +54,6 @@ export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
             }
         } else {
             setIsAuthenticated(false);
-            navigate(ROUTES.LOG_IN);
         }
     }, []);
 
