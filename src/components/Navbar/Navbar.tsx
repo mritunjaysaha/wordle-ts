@@ -9,7 +9,8 @@ import { logout } from '../../requests/httpCalls/logout';
 import { ModeSwitch } from '../ModeSwitch/ModeSwitch';
 
 export const Navbar = () => {
-    const { isAuthenticated, setIsAuthenticated, handleOpenLeaderBoard } = useAuthContext();
+    const { isAuthenticated, setIsAuthenticated, handleOpenLeaderBoard, handleOpenGameModal } =
+        useAuthContext();
 
     const menuRef = useRef<HTMLDivElement>(null);
     const [isMenuClicked, setIsMenuClicked] = useState<boolean>(false);
@@ -142,6 +143,10 @@ export const Navbar = () => {
                                     </li>
                                 </>
                             )}
+
+                            <li>
+                                <button onClick={handleOpenGameModal}>How</button>
+                            </li>
 
                             <li>
                                 <ModeSwitch />

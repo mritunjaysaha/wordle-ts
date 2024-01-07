@@ -1,5 +1,6 @@
 import { animation, animationWin, green } from '../../utility/constants';
-import { Tile, TileProps } from './Tile';
+import type { TileProps } from './Tile';
+import { Tile } from './Tile';
 
 interface RowProps {
     guess?: TileProps[] | null;
