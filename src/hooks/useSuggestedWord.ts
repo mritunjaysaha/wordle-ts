@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { BaseResponse } from '../types/BaseResponse';
+
+import type { BaseResponse } from '../types/BaseResponse';
 
 type SuggestedWordResponse = BaseResponse & {
     word: string;
@@ -17,7 +18,6 @@ export const useSuggestedWord = () => {
             }/api/v1/words/`,
         );
         const parsedRes = (await res.json()) as SuggestedWordResponse;
-        console.log(parsedRes);
 
         setSuggestedWord(parsedRes.word);
     };
