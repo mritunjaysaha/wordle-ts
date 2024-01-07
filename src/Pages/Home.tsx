@@ -81,8 +81,8 @@ function Home() {
                 center
                 onClose={handleCloseGameModal}
                 classNames={{
-                    modal: 'rounded p-8 w-1/2 2xl:w-1/4',
-                    closeButton: 'top-0 p-4 right-0',
+                    modal: 'rounded p-8 w-11/12 lg:w-1/2 2xl:w-1/4',
+                    closeButton: 'top-0 p-4 lg:right-0',
                 }}
             >
                 <GameInstructionsModal />
