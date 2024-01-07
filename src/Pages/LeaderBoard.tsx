@@ -1,10 +1,10 @@
 import { TableLeaderBoardHead } from '../components/TableLeaderBoardHead/TableLeaderBoardHead';
 import { TableLeaderBoardRow } from '../components/TableLeaderBoardRow/TableLeaderBoardRow';
-import { useAuthContext } from '../hooks/useAuthContext';
+import { useAppContext } from '../hooks/useAppContext';
 import { useLeaderBoard } from '../hooks/useLeaderBoard';
 
 export default function LeaderBoard() {
-    const { handleCloseLeaderBoard } = useAuthContext();
+    const { handleCloseLeaderBoard } = useAppContext();
     const { leaderBoardArr } = useLeaderBoard();
 
     return (

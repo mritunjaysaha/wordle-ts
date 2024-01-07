@@ -5,9 +5,9 @@ import { Board } from '../components/Board/Board';
 import { GameInstructionsModal } from '../components/GameInstructionsModal/GameInstructionsModal';
 import { Keypad } from '../components/Keypad/Keypad';
 import { ModalContent } from '../components/Modal/ModalContent';
-import { useAuthContext } from '../hooks/useAuthContext';
+import { useAppContext } from '../hooks/useAppContext';
 import { useStore } from '../hooks/useStore';
-import { WordleContext } from '../store/context';
+import { WordleContext } from '../store/WordleContext';
 
 function Home() {
     const {
@@ -27,7 +27,7 @@ function Home() {
         onIncrementScore,
     } = useStore();
 
-    const { isGameModalClicked, handleCloseGameModal } = useAuthContext();
+    const { isGameModalClicked, handleCloseGameModal } = useAppContext();
 
     const handleKeyup = (e: KeyboardEvent) => {
         const { key } = e;

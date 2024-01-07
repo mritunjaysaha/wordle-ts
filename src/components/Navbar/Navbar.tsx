@@ -5,13 +5,14 @@ import { Link } from 'react-router-dom';
 
 import { ReactComponent as IconQuestion } from '../../assets/question.svg';
 import { ROUTES } from '../../constants/routes';
+import { useAppContext } from '../../hooks/useAppContext';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import { logout } from '../../requests/httpCalls/logout';
 import { ModeSwitch } from '../ModeSwitch/ModeSwitch';
 
 export const Navbar = () => {
-    const { isAuthenticated, setIsAuthenticated, handleOpenLeaderBoard, handleOpenGameModal } =
-        useAuthContext();
+    const { handleOpenLeaderBoard, handleOpenGameModal } = useAppContext();
+    const { isAuthenticated, setIsAuthenticated } = useAuthContext();
 
     const menuRef = useRef<HTMLDivElement>(null);
     const [isMenuClicked, setIsMenuClicked] = useState<boolean>(false);
