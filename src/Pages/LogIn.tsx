@@ -50,8 +50,8 @@ export default function LogIn() {
 
     return (
         <AuthLayout>
-            <div className='flex w-11/12 flex-col gap-8 md:w-10/12 lg:w-1/2 2xl:w-1/3'>
-                <div className='flex  flex-col items-center justify-center rounded-lg border px-8 py-10 lg:px-14'>
+            <div className='flex w-11/12 flex-col gap-8 md:w-10/12 lg:w-1/2 2xl:w-1/3 dark:bg-blue-midnight'>
+                <div className='flex flex-col items-center justify-center rounded-lg border px-8 py-10 lg:px-14 dark:border-slate-700 '>
                     <h3 className='text-2xl'>Sign in</h3>
 
                     <form className='w-full' onSubmit={handleSubmit(onSubmit)}>
@@ -81,7 +81,7 @@ export default function LogIn() {
                             }}
                         />
 
-                        <button className='form-button flex items-center justify-center'>
+                        <button className='form-button'>
                             {!isLoading ? (
                                 'Log in'
                             ) : (
@@ -97,11 +97,11 @@ export default function LogIn() {
                     </form>
                 </div>
 
-                <div className='border border-slate-300'></div>
+                <div className='border border-slate-300 dark:border-slate-700'></div>
 
                 <Link
                     to={ROUTES.SIGN_UP}
-                    className='flex h-16 items-center justify-center rounded-full border  border-black text-xl transition duration-300 ease-in-out hover:bg-slate-100'
+                    className='flex h-16 items-center justify-center rounded-full border  border-black text-xl transition duration-300 ease-in-out hover:bg-slate-100 dark:border-slate-700 dark:hover:bg-slate-800'
                 >
                     Create an account
                 </Link>
