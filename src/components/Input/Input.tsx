@@ -42,7 +42,7 @@ export const Input: FC<InputProps> = ({
 
     return (
         <div className='form-input-container'>
-            <label className='form-label' htmlFor={id}>
+            <label className='form-label dark:text-slate-400' htmlFor={id}>
                 {label}
             </label>
             <div
@@ -54,11 +54,15 @@ export const Input: FC<InputProps> = ({
                     type={inputType}
                     {...rest}
                     {...register(registerKey, registerOptions)}
-                    className='w-full focus:outline-none'
+                    className='w-full focus:outline-none dark:bg-blue-midnight dark:text-slate-50'
                 />
                 {type === 'password' && (
                     <button type='button' onClick={handlePasswordVisibility}>
-                        {isPasswordVisible ? <IconPasswordVisible /> : <IconPasswordHidden />}
+                        {isPasswordVisible ? (
+                            <IconPasswordVisible className='svg-icon-dark' />
+                        ) : (
+                            <IconPasswordHidden className='svg-icon-dark' />
+                        )}
                     </button>
                 )}
             </div>

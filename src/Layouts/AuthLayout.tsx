@@ -5,5 +5,9 @@ type AuthLayoutProps = {
 };
 
 export const AuthLayout: FC<AuthLayoutProps> = ({ children }) => {
-    return <section className='flex h-full w-full items-center justify-center'>{children}</section>;
+    return (
+        <section className='flex h-full w-full items-center justify-center dark:bg-blue-midnight dark:text-slate-50'>
+            {children}
+        </section>
+    );
 };
