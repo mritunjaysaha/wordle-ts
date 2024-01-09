@@ -23,7 +23,7 @@ export const ModalContent = ({ isCorrect, solution, turn }: ModalContentProps) =
 
             <button
                 onClick={onIncrementScore}
-                className='mt-4 bg-blue-midnight px-4 py-2 font-bold text-white'
+                className='mt-4 rounded bg-blue-midnight px-4 py-2 font-bold text-white'
             >
                 Play Again
             </button>

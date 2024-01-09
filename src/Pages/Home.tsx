@@ -71,9 +71,13 @@ function Home() {
 
             <Modal
                 open={open}
-                onClose={onCloseModal}
                 center
-                classNames={{ modal: 'rounded p-6', closeButton: 'top-0 p-0.5 right-0' }}
+                onClose={onCloseModal}
+                closeIcon={<IconClose />}
+                classNames={{
+                    modal: 'rounded p-10 dark:bg-slate-800 dark:text-slate-100',
+                    closeButton: 'top-0 p-2 right-0 dark:text-white current',
+                }}
             >
                 <ModalContent isCorrect={isCorrect} solution={solution} turn={turn} />
             </Modal>
