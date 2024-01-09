@@ -81,7 +81,7 @@ export default function LogIn() {
                             }}
                         />
 
-                        <button className='form-button flex items-center justify-center'>
+                        <button className='form-button'>
                             {!isLoading ? (
                                 'Log in'
                             ) : (

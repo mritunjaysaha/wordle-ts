@@ -36,7 +36,7 @@
 }
 
 .form-button {
-    @apply mt-8 h-16 w-full rounded-full bg-slate-800 text-xl font-medium text-white transition duration-300 ease-in-out hover:bg-slate-700 dark:hover:bg-slate-700 dark:bg-slate-600;
+    @apply mt-8 h-16 w-full rounded-full bg-slate-800 text-xl font-medium text-white transition duration-300 ease-in-out hover:bg-slate-700 dark:hover:bg-slate-700 dark:bg-slate-600 flex items-center justify-center;
 }
 
 .timeline-text-center {
@@ -48,7 +48,7 @@
 }
 
 .timeline-text-center-active {
-    @apply text-black;
+    @apply text-black dark:text-slate-400;
 }
 
 .nav-list-item {

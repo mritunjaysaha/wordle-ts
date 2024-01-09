@@ -1,7 +1,8 @@
 import type { Dispatch, FC, KeyboardEvent, SetStateAction } from 'react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
+import { Rings } from 'react-loader-spinner';
 import { useNavigate } from 'react-router-dom';
 
 import { ROUTES } from '../../constants/routes';
@@ -26,7 +27,10 @@ export const SignUpForm: FC<SignUpFormProps> = ({ formTimelineState, setFormTime
         setFocus,
     } = useForm<CreateAccountData>({ mode: 'onBlur' });
 
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+
     const onSubmit = async (data: CreateAccountData) => {
+        setIsLoading(true);
         console.log('[onSubmit]');
         const res = await createAccount(data);
 
@@ -36,6 +40,8 @@ export const SignUpForm: FC<SignUpFormProps> = ({ formTimelineState, setFormTime
         } else {
             toast.error('Sign up failed');
         }
+
+        setIsLoading(false);
     };
 
     const handleEmailSubmit = () => {
@@ -135,7 +141,17 @@ export const SignUpForm: FC<SignUpFormProps> = ({ formTimelineState, setFormTime
                         placeholder='*************'
                     />
                     <button type='submit' className='form-button mb-20'>
-                        Submit
+                        {!isLoading ? (
+                            'Sign up'
+                        ) : (
+                            <Rings
+                                visible={true}
+                                height='50'
+                                width='50'
+                                color='#fafafa'
+                                ariaLabel='rings-loading'
+                            />
+                        )}
                     </button>
                 </>
             )}
