@@ -1,7 +1,7 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import toast from 'react-hot-toast';
 import OutsideClickHandler from 'react-outside-click-handler';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import { ReactComponent as IconQuestion } from '../../assets/question.svg';
 import { ROUTES } from '../../constants/routes';
@@ -11,6 +11,7 @@ import { logout } from '../../requests/httpCalls/logout';
 import { ModeSwitch } from '../ModeSwitch/ModeSwitch';
 
 export const Navbar = () => {
+    const location = useLocation();
     const { handleOpenLeaderBoard, handleOpenGameModal } = useAppContext();
     const { isAuthenticated, setIsAuthenticated } = useAuthContext();
 
@@ -52,6 +53,10 @@ export const Navbar = () => {
         setIsMenuClicked(false);
         menu.classList.add('hidden');
     };
+
+    useEffect(() => {
+        handleMenuClose();
+    }, [location.pathname]);
 
     return (
         <OutsideClickHandler onOutsideClick={handleMenuClose}>
