@@ -1,33 +1,43 @@
 import { useEffect, useState } from 'react';
 
-import type { BaseResponse } from '../types/BaseResponse';
-
-type SuggestedWordResponse = BaseResponse & {
-    word: string;
-};
+import { getWord } from '../requests/httpCalls/getWord';
+import { getWordWithHint } from '../requests/httpCalls/getWordWithHint';
+import { useAuthContext } from './useAuthContext';
 
 export const useSuggestedWord = () => {
     const [suggestedWord, setSuggestedWord] = useState<string>('');
 
-    const getWord = async () => {
-        const res = await fetch(
-            `${
-                import.meta.env.MODE === 'development'
-                    ? 'http://localhost:4123'
-                    : import.meta.env.VITE_BASE_URL
-            }/api/v1/words/`,
-        );
-        const parsedRes = (await res.json()) as SuggestedWordResponse;
+    const {
+        user: { email },
+        isAuthenticated,
+    } = useAuthContext();
 
-        setSuggestedWord(parsedRes.word);
+    console.log('[useSuggestedWord]', { email, isAuthenticated });
+
+    const getSuggestedWord = async () => {
+        if (email) {
+            const res = await getWordWithHint(email);
+
+            if (res.success) {
+                setSuggestedWord(res.word);
+            }
+        } else {
+            const res = await getWord();
+            console.log('[useSuggestedWord]', { res });
+            if (res.success) {
+                setSuggestedWord(res.word);
+            }
+        }
     };
 
     useEffect(() => {
-        getWord();
-    }, []);
+        setTimeout(() => {
+            getSuggestedWord();
+        }, 0);
+    }, [isAuthenticated]);
 
     return {
         suggestedWord,
-        getWord,
+        getSuggestedWord,
     } as const;
 };

@@ -11,7 +11,7 @@ import { useAuthContext } from './useAuthContext';
 import { useSuggestedWord } from './useSuggestedWord';
 
 export const useStore = () => {
-    const { getWord, suggestedWord: solution } = useSuggestedWord();
+    const { getSuggestedWord, suggestedWord: solution } = useSuggestedWord();
 
     const {
         user: { email },
@@ -172,7 +172,7 @@ export const useStore = () => {
         resetStates();
 
         setTimeout(() => {
-            getWord();
+            getSuggestedWord();
         }, 100);
     };
 
