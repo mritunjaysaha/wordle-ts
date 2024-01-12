@@ -6,13 +6,12 @@ import { useAuthContext } from './useAuthContext';
 
 export const useSuggestedWord = () => {
     const [suggestedWord, setSuggestedWord] = useState<string>('');
+    const [hint, setHint] = useState<string>('');
 
     const {
         user: { email },
         isAuthenticated,
     } = useAuthContext();
-
-    console.log('[useSuggestedWord]', { email, isAuthenticated });
 
     const getSuggestedWord = async () => {
         if (email) {
@@ -20,10 +19,11 @@ export const useSuggestedWord = () => {
 
             if (res.success) {
                 setSuggestedWord(res.word);
+                setHint(res.hint);
             }
         } else {
             const res = await getWord();
-            console.log('[useSuggestedWord]', { res });
+
             if (res.success) {
                 setSuggestedWord(res.word);
             }
@@ -37,6 +37,7 @@ export const useSuggestedWord = () => {
     }, [isAuthenticated]);
 
     return {
+        hint,
         suggestedWord,
         getSuggestedWord,
     } as const;

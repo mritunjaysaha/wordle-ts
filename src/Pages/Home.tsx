@@ -12,11 +12,13 @@ import { WordleContext } from '../store/WordleContext';
 
 function Home() {
     const {
+        hint,
         turn,
         open,
         shake,
-        score,
+        // score,
         guesses,
+        showHint,
         solution,
         usedKeys,
         isCorrect,
@@ -24,8 +26,10 @@ function Home() {
         keyboardEnable,
         handleInput,
         onCloseModal,
-        setKeyboardEnable,
+        handleHideHint,
+        handleShowHint,
         onIncrementScore,
+        setKeyboardEnable,
     } = useStore();
 
     const { isGameModalClicked, handleCloseGameModal } = useAppContext();
@@ -54,12 +58,29 @@ function Home() {
                 onIncrementScore,
             }}
         >
-            {import.meta.env.MODE === 'development' && (
+            {/* {import.meta.env.MODE === 'development' && (
                 <>
                     <p>score: {score}</p>
                     <p>solution: {solution}</p>
                 </>
-            )}
+            )} */}
+            <div className='absolute right-2 top-20 flex w-max flex-col items-end gap-2 rounded-lg bg-grey-light p-4 lg:right-10 dark:bg-blue-midnight'>
+                <button
+                    className='w-max rounded bg-slate-800 px-8 py-2 font-semibold text-white transition duration-200 hover:bg-slate-700 dark:bg-slate-100 dark:text-black dark:hover:bg-slate-200'
+                    onFocus={handleShowHint}
+                    onMouseOver={handleShowHint}
+                    onMouseOut={handleHideHint}
+                    onBlur={handleHideHint}
+                >
+                    Hint
+                </button>
+                {showHint && (
+                    <div className='w-60 rounded bg-blue-midnight p-4 text-white dark:bg-grey-light dark:text-black'>
+                        {hint}
+                    </div>
+                )}
+            </div>
+
             <main className='flex flex-1 flex-col justify-center gap-2 bg-grey-light md:gap-4 dark:bg-blue-midnight'>
                 <Board guesses={guesses} turn={turn} currentGuess={currentGuess} shake={shake} />
                 <Keypad
