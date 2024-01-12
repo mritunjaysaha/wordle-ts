@@ -11,13 +11,13 @@ import { useAuthContext } from './useAuthContext';
 import { useSuggestedWord } from './useSuggestedWord';
 
 export const useStore = () => {
-    const { getWord, suggestedWord: solution } = useSuggestedWord();
-
+    const { getSuggestedWord, suggestedWord: solution, hint } = useSuggestedWord();
     const {
         user: { email },
         isAuthenticated,
     } = useAuthContext();
 
+    const [showHint, setShowHint] = useState<boolean>(false);
     const [turn, setTurn] = useState<number>(0);
     const [currentGuess, setCurrentGuess] = useState<string>('');
     const [guesses, setGuesses] = useState<TileProps[][]>([...Array<TileProps[]>(6)]);
@@ -40,6 +40,14 @@ export const useStore = () => {
 
     const onCloseModal = () => {
         setOpen(false);
+    };
+
+    const handleShowHint = () => {
+        setShowHint(true);
+    };
+
+    const handleHideHint = () => {
+        setShowHint(false);
     };
 
     const formatGuess = () => {
@@ -172,16 +180,18 @@ export const useStore = () => {
         resetStates();
 
         setTimeout(() => {
-            getWord();
+            getSuggestedWord();
         }, 100);
     };
 
     return {
+        hint,
         turn,
         open,
         shake,
         score,
         guesses,
+        showHint,
         solution,
         usedKeys,
         isCorrect,
@@ -189,7 +199,9 @@ export const useStore = () => {
         keyboardEnable,
         handleInput,
         onCloseModal,
-        setKeyboardEnable,
+        handleHideHint,
+        handleShowHint,
         onIncrementScore,
+        setKeyboardEnable,
     } as const;
 };
