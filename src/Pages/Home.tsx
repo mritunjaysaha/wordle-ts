@@ -7,6 +7,7 @@ import { GameInstructionsModal } from '../components/GameInstructionsModal/GameI
 import { Keypad } from '../components/Keypad/Keypad';
 import { ModalContent } from '../components/Modal/ModalContent';
 import { useAppContext } from '../hooks/useAppContext';
+import { useAuthContext } from '../hooks/useAuthContext';
 import { useStore } from '../hooks/useStore';
 import { WordleContext } from '../store/WordleContext';
 
@@ -33,6 +34,8 @@ function Home() {
     } = useStore();
 
     const { isGameModalClicked, handleCloseGameModal } = useAppContext();
+
+    const { isAuthenticated } = useAuthContext();
 
     const handleKeyup = (e: KeyboardEvent) => {
         const { key } = e;
@@ -76,7 +79,7 @@ function Home() {
                 </button>
                 {showHint && (
                     <div className='w-60 rounded bg-blue-midnight p-4 text-white dark:bg-grey-light dark:text-black'>
-                        {hint}
+                        {!isAuthenticated ? <p>Please login to see hints</p> : <p>{hint}</p>}
                     </div>
                 )}
             </div>
